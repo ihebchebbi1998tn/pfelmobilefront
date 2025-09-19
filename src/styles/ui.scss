@@ -1,0 +1,323 @@
+@use './colors.scss' as *;
+
+@keyframes blinkingZoom {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.custom-button {
+  padding: $button-padding;
+  border-radius: $border-radius;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  &.blinkingZoom {
+    animation: blinkingZoom 1.5s infinite;
+    background-color: var(--primary-color);
+    color: $white-color;
+    border: 1px solid var(--primary-color);
+    &:hover {
+      background-color: var(--primary-hover-color);
+      animation: none;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      &:hover {
+        background-color: var(--primary-color);
+        color: $white-color;
+      }
+    }
+  }
+  &.magic {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+     var(--primary-color),
+    var(--secondary-color),
+    var(--secondary-color)
+  );
+  color: $white-color;
+  border: 2px solid var(--secondary-color);
+
+  &:hover {
+    background-color: var(--primary-hover-color);
+  }
+}
+
+  
+  &.primary {
+    background-color: var(--primary-color);
+    color: $white-color;
+    border: 1px solid var(--primary-color);
+    &:hover {
+      background-color: var(--primary-hover-color);
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      &:hover {
+        background-color: var(--primary-color);
+        color: $white-color;
+      }
+    }
+  }
+  &.secondary {
+    background-color: var(--secondary-color);
+    color: $white-color;
+    border: 1px solid var(--secondary-color);
+    &:hover {
+      background-color: var(--secondary-hover-color);
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid var(--secondary-color);
+      color: var(--secondary-color);
+      &:hover {
+        background-color: var(--secondary-color);
+        color: $white-color;
+      }
+    }
+  }
+   &.table {
+    background-color: transparent;
+    color: $white-color;
+    border: 1px solid $white-color;
+    &:hover {
+      background-color: $black-color;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid $white-color;
+      color: $white-color;
+      &:hover {
+        background-color: #3a3c3e;
+        border-color: transparent;
+      }
+    }
+  }
+   &.light {
+    background-color: transparent;
+    color: $black-color;
+    border: 1px solid #d8d6e4;
+    &:hover {
+      background-color: #d8d6e4;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid #d8d6e4;
+      color: $black-color;
+      &:hover {
+        background-color: #d8d6e4;
+        color: $grey-6;
+        border-color: transparent;
+      }
+    }
+  }
+  &.danger {
+    background-color: $danger-color;
+    color: $white-color;
+    border: 1px solid $danger-color;
+    &:hover {
+      background-color: $danger-hover-color;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid $danger-color;
+      color: $danger-color;
+      &:hover {
+        background-color: $danger-color;
+        color: $white-color;
+      }
+    }
+  }
+  &.warning {
+    background-color: $warning-color;
+    color: $white-color;
+    border: 1px solid $warning-color;
+    &:hover {
+      background-color: $warning-hover-color;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid $warning-color;
+      color: $warning-color;
+      &:hover {
+        background-color: $warning-color;
+        color: $white-color;
+      }
+    }
+  }
+  &.success {
+    background-color: $success-color;
+    color: $white-color;
+    border: 1px solid $success-color;
+    &:hover {
+      background-color: $success-hover-color;
+    }
+    &.outlined {
+      background-color: transparent;
+      border: 2px solid $success-color;
+      color: $success-color;
+      &:hover {
+        background-color: $success-color;
+        color: $white-color;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+.custom-button.Mui-disabled {
+  cursor: not-allowed !important;
+}
+
+
+
+.custom-dropdown {
+  margin-bottom: 1rem;
+  .MuiSelect-root {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: $white-color;
+    border: 1px solid $grey-6;
+    transition: border-color 0.3s ease;
+    &:hover {
+      border-color: $primary-color; 
+    }
+    &:focus {
+      border-color: $primary-color;  
+    }
+  }
+  .MuiMenuItem-root {
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: $primary-color; 
+      color: $white-color; 
+    }
+  }
+  .MuiSelect-icon {
+    color: $black-color; 
+  }
+}
+.input-container {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    background-color: $white-color;
+
+    &.Mui-focused {
+      border-color: $primary-color;
+    }
+
+    .MuiInputLabel-root {
+      color: $grey-6;
+    }
+    .MuiInputLabel-root.Mui-focused {
+      color: $primary-color;
+    }
+  }
+  .input-error{
+    &.Mui-focused {
+      border-color: $danger-color !important;
+    }
+
+    .MuiInputLabel-root.Mui-focused {
+      color: $danger-color;
+    }
+  }
+}
+.datepicker-container {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    background-color: $white-color;
+
+    &.Mui-focused {
+      border-color: $primary-color;
+    }
+
+    .MuiInputLabel-root {
+      color: $grey-6;
+    }
+    .MuiInputLabel-root.Mui-focused {
+      color: $primary-color;
+    }
+  }
+  .MuiPickersPopper-root {
+    z-index: 1300; 
+  }
+}
+
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $loader-shadow; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px); 
+  z-index: 99999;
+}
+
+.custom-loader {
+  color: $primary-color !important; 
+}
+.custom-table-header {
+  background-color: $table-header !important;
+}
+.custom-table-pagination{
+  border-top: 1px solid $white-color;
+}
+.custom-table-pagination .MuiTablePagination-selectIcon {
+    color: '#004aad';
+  }
+
+  .custom-table-pagination .MuiTablePagination-actions {
+    display: 'flex';
+    justify-content: 'space-between';
+  }
+  .custom-table-pagination .MuiTypography-root {
+    font-size: '14px';
+    font-weight: 500;
+  }
+
+ 
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
