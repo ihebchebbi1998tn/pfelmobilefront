@@ -55,7 +55,7 @@ const ChatDrawer = ({ open, onClose, anchor, toggleLoader, isAI }) => {
   const [editingSessionId, setEditingSessionId] = useState(null)
   const [users, setUsers] = useState([])
   const [editTitle, setEditTitle] = useState('')
-  const backgroundColor = user.organization.primaryColor
+  const backgroundColor = user?.organization?.primaryColor || '#015eb9'
 
   const textColor = isDark ? '#fff' : '#000'
   const handleMenuClick = (event, row) => {
@@ -430,7 +430,7 @@ const ChatDrawer = ({ open, onClose, anchor, toggleLoader, isAI }) => {
                       sx={{
                         color: isDark
                           ? 'white'
-                          :user.organization.primaryColor,
+                          : user?.organization?.primaryColor || '#015eb9',
                       }}
                     />
                   </ListItemIcon>

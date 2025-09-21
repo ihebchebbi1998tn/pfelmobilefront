@@ -93,7 +93,7 @@ const ChatBotContent = ({ isTyping }) => {
         >
           <Typography
             sx={{
-              background: `linear-gradient(to right, ${user.organization.primaryColor},${user.organization.secondaryColor}, ${user.organization.secondaryColor} )`,
+              background: `linear-gradient(to right, ${user?.organization?.primaryColor || '#015eb9'},${user?.organization?.secondaryColor || '#4286f4'}, ${user?.organization?.secondaryColor || '#4286f4'} )`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontWeight: 'bold',
@@ -104,7 +104,7 @@ const ChatBotContent = ({ isTyping }) => {
           </Typography>
           <Typography
             sx={{
-              background: `linear-gradient(to right, ${user.organization.primaryColor},${user.organization.secondaryColor}, ${user.organization.secondaryColor} )`,
+              background: `linear-gradient(to right, ${user?.organization?.primaryColor || '#015eb9'},${user?.organization?.secondaryColor || '#4286f4'}, ${user?.organization?.secondaryColor || '#4286f4'} )`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontWeight: 'bold',
@@ -127,8 +127,8 @@ const ChatBotContent = ({ isTyping }) => {
           bgcolor={
             msg.isFromUser
               ? isDark
-                ? user.organization.primaryColor
-                : user.organization.secondaryColor
+                ? user?.organization?.primaryColor || '#015eb9'
+                : user?.organization?.secondaryColor || '#4286f4'
               : '#FEFFFE'
           }
           sx={{
@@ -174,8 +174,8 @@ const ChatBotContent = ({ isTyping }) => {
             variant="disc"
             color={
               isDark
-                ? user.organization.primaryColor
-                : user.organization.secondaryColor
+                ? user?.organization?.primaryColor || '#015eb9'
+                : user?.organization?.secondaryColor || '#4286f4'
             }
             size="small"
             text=""

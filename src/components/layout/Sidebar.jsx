@@ -194,7 +194,7 @@ const Sidebar = ({
     <Box>
       <div className="sidebar-header" style={{height:isCollapsed? '47px':'61px'}}>
         <div className="sidebar-logo">
-          <img src={user.organization.logoUrl} alt="Logo" className="logo" 
+          <img src={user?.organization?.logoUrl} alt="Logo" className="logo" 
           style={{ width: isCollapsed ? 40 : 60, transition: '0.3s' }}
           />
         </div>
@@ -208,7 +208,7 @@ const Sidebar = ({
           
           }}
         >
-          {user.organization.name}
+          {user?.organization?.name}
         </Typography>
       )}
         <Divider
@@ -259,7 +259,7 @@ const Sidebar = ({
 
           const isActive = location.pathname === item.path;
 
-          const primaryColor = user.organization.primaryColor;
+          const primaryColor = user?.organization?.primaryColor || '#015eb9';
 
           const lighterBg = alpha(primaryColor, 0.15); 
           const hoverBg = isDark

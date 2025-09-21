@@ -73,7 +73,7 @@ const ChatHeader = ({
   const showUnblockButton = currentUserToUserSession == null
     ? false
     : (!isAI && currentUserToUserSession.isDeleted && currentUserToUserSession.userIdWhoDeleted==user.id)
-  const backgroundColor = user.organization.primaryColor
+  const backgroundColor = user?.organization?.primaryColor || '#015eb9'
 
   const textColor = isDark ? '#fff' : '#000'
 

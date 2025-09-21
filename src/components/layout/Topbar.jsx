@@ -323,20 +323,20 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                   borderColor: 'transparent',
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: user.organization.primaryColor,
+                  borderColor: user?.organization?.primaryColor || '#015eb9',
                 },
                 '&:hover .MuiOutlinedInput-notchedOutline': {
-                  borderColor: user.organization.primaryColor,
+                  borderColor: user?.organization?.primaryColor || '#015eb9',
                 },
                 '& .MuiOutlinedInput-root': {
                   '& fieldset': {
-                    borderColor: user.organization.primaryColor,
+                    borderColor: user?.organization?.primaryColor || '#015eb9',
                   },
                   '&:hover fieldset': {
-                    borderColor: user.organization.primaryColor,
+                    borderColor: user?.organization?.primaryColor || '#015eb9',
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: user.organization.primaryColor,
+                    borderColor: user?.organization?.primaryColor || '#015eb9',
                   },
                 },
               }}
@@ -375,7 +375,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
               onClick={handleNotifOpen}
               className="notification-icon notificationStep"
               sx={{ color: isDark ? 'white' : '#242424', cursor: 'pointer', 
-                 background: `linear-gradient(to right, ${user.organization.primaryColor},${user.organization.primaryColor}, ${user.organization.secondaryColor} )`,
+                 background: `linear-gradient(to right, ${user?.organization?.primaryColor || '#015eb9'},${user?.organization?.primaryColor || '#015eb9'}, ${user?.organization?.secondaryColor || '#4286f4'} )`,
                 ml:0.5,
                 height:isCollapsed?'30px':'38px', width:isCollapsed?'30px':'38px',mb:isCollapsed? 0.5 : 0 
                }}
@@ -524,7 +524,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
               width:widthAndHeighImageUser,
               mb:isCollapsed? 0.5 : 0 ,
               ml:0.5,
-              background: userImage!=null ? '': `linear-gradient(to right, ${user.organization.primaryColor},${user.organization.primaryColor}, ${user.organization.secondaryColor} )`
+              background: userImage!=null ? '': `linear-gradient(to right, ${user?.organization?.primaryColor || '#015eb9'},${user?.organization?.primaryColor || '#015eb9'}, ${user?.organization?.secondaryColor || '#4286f4'} )`
               }}>
                 {userImage!=null ? (
                   <img

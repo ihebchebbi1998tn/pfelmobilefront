@@ -42,7 +42,7 @@ const LandingPage = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false)
   const tableStyleCellHead ={fontWeight: 'bold',backgroundColor:theme.palette.mode === 'dark'? theme.palette.grey[900]: theme.palette.grey[200],color: theme.palette.text.primary}
   const isDark = theme.palette.mode === 'dark'
-  const primaryColor=user.organization.primaryColor
+  const primaryColor = user?.organization?.primaryColor || '#015eb9'
   const fetchUserStats = async () => {
     try {
       const data = await statsService.getStatsUser()
@@ -181,7 +181,7 @@ const monthLabels = [
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  background: `linear-gradient(to right, ${user.organization.primaryColor},${user.organization.primaryColor}, ${user.organization.secondaryColor} )`,
+                  background: `linear-gradient(to right, ${user?.organization?.primaryColor || '#015eb9'},${user?.organization?.primaryColor || '#015eb9'}, ${user?.organization?.secondaryColor || '#4286f4'} )`,
                   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
                   height: '100%',
                 }}

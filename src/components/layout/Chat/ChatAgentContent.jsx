@@ -30,7 +30,7 @@ const ChatAgentContent = ({ handleconectedUsersClick, connectedUsers, otherUserI
     user?.permissions?.some(
       (perm) => perm === 'Permissions.Messages.Clients'
     ) || false
-  const backgroundColor = user.organization.primaryColor
+  const backgroundColor = user?.organization?.primaryColor || '#015eb9'
 
   const textColor = isDark ? '#fff' : '#000'
 
@@ -344,7 +344,7 @@ const ChatAgentContent = ({ handleconectedUsersClick, connectedUsers, otherUserI
               alignSelf={isUser ? 'flex-end' : 'flex-start'}
               bgcolor={
                 isUser
-                  ? user.organization.primaryColor
+                  ? user?.organization?.primaryColor || '#015eb9'
                   : '#FEFFFE'
               }
               p={1}
@@ -401,7 +401,7 @@ const ChatAgentContent = ({ handleconectedUsersClick, connectedUsers, otherUserI
             <ThreeDot
               variant="bounce"
               color={
-                user.organization.primaryColor
+                user?.organization?.primaryColor || '#015eb9'
               }
               size="small"
               text=""
