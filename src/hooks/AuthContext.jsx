@@ -100,7 +100,19 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setAuthContext(contextValue)
-    fetchUser()
+    try {
+      const token =
+        (typeof window !== 'undefined' &&
+          (localStorage.getItem('access_token') ||
+            sessionStorage.getItem('access_token')))
+      if (token) {
+        fetchUser()
+      } else {
+        setLoading(false)
+      }
+    } catch {
+      setLoading(false)
+    }
   }, [fetchUser])
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

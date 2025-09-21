@@ -10,11 +10,13 @@ import { startSignalRConnection } from '../services/signalRNotifService'
 import axiosInstance from '../utils/axiosInstance'
 import PropTypes from 'prop-types'
 import { useLanguage } from './LanguageContext'
+import { useAuth } from './AuthContext'
 
 const NotificationContext = createContext()
 
 export const NotificationProvider = ({ children }) => {
   const { dictionary } = useLanguage()
+  const { isAuthenticated, loading } = useAuth()
   const [notifications, setNotifications] = useState([])
   const [notificationError, setNotificationError] = useState(null)
 
@@ -56,6 +58,8 @@ export const NotificationProvider = ({ children }) => {
     [dictionary]
   )
   useEffect(() => {
+    if (loading || !isAuthenticated) return
+
     const connect = async () => {
       const conn = await startSignalRConnection()
       if (!conn) {
@@ -72,7 +76,7 @@ export const NotificationProvider = ({ children }) => {
     }
     connect()
     fetchNotifications()
-  }, [])
+  }, [isAuthenticated, loading, fetchNotifications, dictionary])
 
   const contextValue = useMemo(
     () => ({

@@ -55,17 +55,36 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._retry = true
 
+      // Avoid refresh attempts if we don't have any stored token (e.g., on login page)
+      let storedToken = null
+      try {
+        storedToken =
+          localStorage.getItem('access_token') ||
+          sessionStorage.getItem('access_token') ||
+          null
+      } catch {}
+
+      if (!storedToken) {
+        return Promise.reject(error)
+      }
+
       if (!isRefreshing) {
         isRefreshing = true
         console.log('Token expired, refreshing token...')
 
         try {
-          const res= await refreshToken()
-          if(res)
-          {
-            processQueue(null)
-            window.location.reload()
+          const res = await refreshToken()
+          // Try to persist any returned access token
+          const newToken =
+            res?.accessToken || res?.token || res?.jwt || res?.access_token
+          if (newToken) {
+            try {
+              if (localStorage.getItem('access_token'))
+                localStorage.setItem('access_token', newToken)
+              else sessionStorage.setItem('access_token', newToken)
+            } catch {}
           }
+          processQueue(null, newToken || undefined)
         } catch (err) {
           processQueue(err, null)
           throw err
@@ -76,7 +95,13 @@ axiosInstance.interceptors.response.use(
 
       return new Promise((resolve, reject) => {
         failedQueue.push({
-          resolve: () => resolve(axiosInstance(originalRequest)),
+          resolve: (token) => {
+            if (token) {
+              originalRequest.headers = originalRequest.headers || {}
+              originalRequest.headers.Authorization = `Bearer ${token}`
+            }
+            resolve(axiosInstance(originalRequest))
+          },
           reject: (err) => reject(err instanceof Error ? err : new Error(err)),
         })
       })

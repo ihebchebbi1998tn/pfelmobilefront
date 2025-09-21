@@ -21,7 +21,7 @@ const ChatUserToUserContext = createContext()
 export const ChatUserToUserProvider = ({ children }) => {
   const [connection, setConnection] = useState(null)
   const { dictionary } = useLanguage()
-  const { user } = useAuth()
+  const { user, isAuthenticated, loading } = useAuth()
   const [connectedUserIds, setConnectedUserIds] = useState([])
   const [userToUserMessages, setUserToUserMessages] = useState([])
   const [unreadMessages, setUnreadMessages] = useState({ total: 0, sessions: [] })
@@ -154,6 +154,8 @@ const leaveSession = useCallback(async () => {
   }
 
   useEffect(() => {
+    if (loading || !isAuthenticated) return
+
     let isMounted = true
     let conn = null
 
@@ -169,10 +171,10 @@ const leaveSession = useCallback(async () => {
         setConnection(conn)
 
         conn.on('ReceiveUserToUserMessage', (data) => {
-          const message= data.message
-        
+          const message = data.message
+
           const inSession = data.inSession
-          if(inSession){
+          if (inSession) {
             setUserToUserMessages((prev) => {
               const alreadyExists = prev.some((m) => m.id === message.id)
               return alreadyExists ? prev : [...prev, message]
@@ -181,46 +183,43 @@ const leaveSession = useCallback(async () => {
           fetchUserToUserSessions()
         })
 
-       conn.on('SessionBlocked', (data) => {
-          if(data)
-             fetchUserToUserSessions()
+        conn.on('SessionBlocked', (data) => {
+          if (data) fetchUserToUserSessions()
         })
 
         conn.on('SessionUnBlocked', (data) => {
-            if(data)
-             fetchUserToUserSessions()
+          if (data) fetchUserToUserSessions()
         })
 
         conn.on('NewUserToUserSessionCreated', handleNewSessionCreated)
 
         conn.on('MessagesSeen', (sessionId) => {
-            setUserToUserMessages((prev) =>
-              prev.map((msg) =>
-                msg.sessionId === sessionId && msg.status === false
-                  ? { ...msg, status: true }
-                  : msg
-              )
-            );
-          
-            setUnreadMessages((prev) => {
-              const sessionToRemove = prev.sessions.find(
-                (s) => s.sessionId === sessionId
-              );
+          setUserToUserMessages((prev) =>
+            prev.map((msg) =>
+              msg.sessionId === sessionId && msg.status === false
+                ? { ...msg, status: true }
+                : msg
+            )
+          )
 
-              if (!sessionToRemove) return prev; 
+          setUnreadMessages((prev) => {
+            const sessionToRemove = prev.sessions.find(
+              (s) => s.sessionId === sessionId
+            )
 
-              const updatedSessions = prev.sessions.filter(
-                (s) => s.sessionId !== sessionId
-              );
+            if (!sessionToRemove) return prev
 
-              const updatedTotal = prev.total - sessionToRemove.unreadCount;
-              return {
-                total: updatedTotal >= 0 ? updatedTotal : 0,
-                sessions: updatedSessions,
-              };
-            });
-          
-        });
+            const updatedSessions = prev.sessions.filter(
+              (s) => s.sessionId !== sessionId
+            )
+
+            const updatedTotal = prev.total - sessionToRemove.unreadCount
+            return {
+              total: updatedTotal >= 0 ? updatedTotal : 0,
+              sessions: updatedSessions,
+            }
+          })
+        })
 
         conn.on('UserTyping', (senderUserId, usersSessionId) => {
           setTypingUserId(senderUserId)
@@ -252,7 +251,7 @@ const leaveSession = useCallback(async () => {
       if (conn) conn.stop()
       clearInterval(intervalId)
     }
-  }, [dictionary, fetchUserToUserSessions])
+  }, [dictionary, fetchUserToUserSessions, isAuthenticated, loading])
 
 
   const handleTyping = async(recipientUserId) => {

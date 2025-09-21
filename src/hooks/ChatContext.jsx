@@ -10,12 +10,14 @@ import { startSignalRConnection } from '../services/signalRService'
 import axiosInstance from '../utils/axiosInstance'
 import PropTypes from 'prop-types'
 import { useLanguage } from './LanguageContext'
+import { useAuth } from './AuthContext'
 
 const ChatContext = createContext()
 
 export const ChatProvider = ({ children }) => {
   const [connection, setConnection] = useState(null)
   const { dictionary } = useLanguage()
+  const { isAuthenticated, loading } = useAuth()
   const [messages, setMessages] = useState([])
   const [sessionId, setSessionId] = useState(null)
   const [chatSessions, setChatSessions] = useState([])
@@ -34,6 +36,8 @@ export const ChatProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    if (loading || !isAuthenticated) return
+
     const connect = async () => {
       const conn = await startSignalRConnection()
       if (!conn) {
@@ -52,7 +56,7 @@ export const ChatProvider = ({ children }) => {
       })
 
       conn.on('SessionEnded', (data) => {
-        if(data){
+        if (data) {
           fetchSessions()
         }
       })
@@ -66,7 +70,7 @@ export const ChatProvider = ({ children }) => {
 
     connect()
     fetchSessions()
-  }, [])
+  }, [isAuthenticated, loading, dictionary, fetchSessions])
 
   const sendMessage = async (content) => {
     if (!connection) {
