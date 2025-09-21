@@ -193,14 +193,14 @@ const handleSubmitPrev =  () => {
         >
           <Container maxWidth="xs">
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              {dictionary.WelcomeBack} 👋
+              {dictionary?.WelcomeBack || 'Welcome back'} 👋
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              {dictionary.LoginToContinue}
+              {dictionary?.LoginToContinue || 'Please log in to continue'}
             </Typography>
 
             <TextField
-              label={dictionary.email}
+              label={dictionary?.email || 'Email'}
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -233,7 +233,7 @@ const handleSubmitPrev =  () => {
               </Typography>
             )}
             <TextField
-              label={dictionary.password}
+              label={dictionary?.password || 'Password'}
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -299,7 +299,7 @@ const handleSubmitPrev =  () => {
                     onChange={(e) => setRemember(e.target.checked)}
                   />
                 }
-                label={dictionary.RememberMe}
+                label={dictionary?.RememberMe || 'Remember me'}
                 sx={{ color: 'text.secondary' }}
               />
               <Button
@@ -308,7 +308,7 @@ const handleSubmitPrev =  () => {
                 sx={{ color: isDark ? '#8a62ef' : 'primary' }}
                 onClick={() => navigate('/forgetPassword')}
               >
-                {dictionary.ForgotPassword}
+                {dictionary?.ForgotPassword || 'Forgot password?'}
               </Button>
             </Box>
 
@@ -326,7 +326,7 @@ const handleSubmitPrev =  () => {
                 },
               }}
             >
-              {dictionary.login}
+              {dictionary?.login || 'Login'}
             </Button>
             {loginError && (
               <Box
@@ -372,10 +372,10 @@ const handleSubmitPrev =  () => {
           >
         <Box>
           <Typography variant="h5" gutterBottom fontWeight="bold">
-              {dictionary.AcceptanceOfTermsAndPrivacyPolicy} 
+              {dictionary?.AcceptanceOfTermsAndPrivacyPolicy || 'Accept Terms & Privacy Policy'} 
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              {dictionary.AcceptanceOfTermsAndPrivacyPolicyDesc}
+              {dictionary?.AcceptanceOfTermsAndPrivacyPolicyDesc || 'To continue, please accept our Terms & Privacy Policy.'}
             </Typography>
             <Box>
                 <FormControlLabel
@@ -390,7 +390,7 @@ const handleSubmitPrev =  () => {
                     onChange={handleSubmitPrev}
                   />
                 }
-                label={dictionary.Accept}
+                label={dictionary?.Accept || 'Accept'}
                 sx={{ color: 'text.secondary' }}
               />
               <FormControlLabel
@@ -405,7 +405,7 @@ const handleSubmitPrev =  () => {
                     onChange={() => setOpenTermsAndPrivacy(false)}
                   />
                 }
-                label={dictionary.close}
+                label={dictionary?.close || 'Close'}
                 sx={{ color: 'text.secondary' }}
               />
             </Box>

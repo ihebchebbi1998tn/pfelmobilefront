@@ -32,7 +32,7 @@ export const LanguageProvider = ({ children }) => {
   }
 
   const contextValue = React.useMemo(
-    () => ({ language, dictionary, defaultLang, currency, changeLanguage }),
+    () => ({ language, dictionary: dictionary || {}, defaultLang, currency, changeLanguage }),
     [language, dictionary, defaultLang, currency]
   )
 
