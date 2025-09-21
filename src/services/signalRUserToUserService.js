@@ -7,7 +7,7 @@ export const startSignalRConnection = async () => {
   if (connection) return connection
 
   connection = new HubConnectionBuilder()
-    .withUrl(`${API_URL}/chat/chat/UserToUser/hub`, {
+    .withUrl(`${API_URL}/usertouserhub`, {
       withCredentials: true,
     })
     .withAutomaticReconnect()

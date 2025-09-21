@@ -7,7 +7,7 @@ export const startSignalRConnection = async () => {
   if (connection) return connection
 
   connection = new HubConnectionBuilder()
-    .withUrl(`${API_URL}/notification/notification/hub`, {
+    .withUrl(`${API_URL}/notificationhub`, {
       withCredentials: true,
     })
     .withAutomaticReconnect()
