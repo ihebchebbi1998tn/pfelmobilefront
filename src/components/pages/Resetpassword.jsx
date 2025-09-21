@@ -169,14 +169,14 @@ const Resetpassword = () => {
               color: 'text.secondary',
             }}
           >
-            © {currentYear} {dictionary.ClientPortal} .L-Mobile{' '}
-            {dictionary.AllRightsReserved}{' '}
+            © {currentYear} {dictionary?.ClientPortal || 'Client Portal'} .L-Mobile{' '}
+            {dictionary?.AllRightsReserved || 'All rights reserved'}{' '}
             <Link
               href="#"
               underline="hover"
               sx={{ color: isDark ? '#8a62ef' : 'primary' }}
             >
-              {dictionary.TermsAndPrivacy}
+              {dictionary?.TermsAndPrivacy || 'Terms & Privacy'}
             </Link>
           </Typography>
         </Box>

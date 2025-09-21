@@ -34,7 +34,7 @@ const HeaderFront = () => {
           style={{ width: 40, transition: '0.3s' }}
         />
         <Typography variant="h6" fontWeight="bold">
-          {dictionary.ClientPortal}
+          {dictionary?.ClientPortal || 'Client Portal'}
         </Typography>
       </Box>
 
@@ -70,7 +70,7 @@ const HeaderFront = () => {
               width="20"
               style={{ borderRadius: '2px', marginRight: '3px' }}
             />
-            {dictionary.French} (FR)
+            {dictionary?.French || 'French'} (FR)
           </MenuItem>
           <MenuItem value="en" sx={{ fontSize: 'small' }}>
             <img
@@ -79,7 +79,7 @@ const HeaderFront = () => {
               width="20"
               style={{ borderRadius: '2px', marginRight: '3px' }}
             />
-            {dictionary.English} (EN)
+            {dictionary?.English || 'English'} (EN)
           </MenuItem>
           <MenuItem value="de" sx={{ fontSize: 'small' }}>
             <img
@@ -88,7 +88,7 @@ const HeaderFront = () => {
               width="20"
               style={{ borderRadius: '2px', marginRight: '3px' }}
             />
-            {dictionary.German} (DE)
+            {dictionary?.German || 'German'} (DE)
           </MenuItem>
         </Select>
 
