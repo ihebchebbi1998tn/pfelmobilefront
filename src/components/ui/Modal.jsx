@@ -62,11 +62,11 @@ const Modal = ({
         <DialogContent>{children}</DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant={'outlined secondary'}>
-            {dictionary.close}
+            {dictionary?.close || 'Close'}
           </Button>
           {showConfirmButton && (
             <Button onClick={onConfirm} variant={variant || 'primary'}>
-              {labelConfirmButton}
+              {labelConfirmButton || dictionary?.confirm || 'Confirm'}
             </Button>
           )}
         </DialogActions>

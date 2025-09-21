@@ -121,7 +121,7 @@ const Profile = () => {
         showConfirmButton={true}
         onConfirm={submit}
         variant={'primary'}
-        labelConfirmButton={dictionary.confirm}
+        labelConfirmButton={dictionary?.confirm || 'Confirm'}
         title={
           <>
             {' '}

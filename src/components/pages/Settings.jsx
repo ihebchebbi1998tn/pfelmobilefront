@@ -252,7 +252,7 @@ const Settings = () => {
               }}
             >
               <Button variant="outlined primary" onClick={handleSubmit} className={'stepBtnConfirm'}>
-                {dictionary.confirm}
+                {dictionary?.confirm || 'Confirm'}
               </Button>
             </Box>
           </form>

@@ -138,7 +138,7 @@ const AddressFormModal = ({ open, onClose, address }) => {
           onClose={onClose}
           showConfirmButton={true}
           onConfirm={handleSubmit}
-          labelConfirmButton={dictionary.confirm}
+          labelConfirmButton={dictionary?.confirm || 'Confirm'}
         >
           <Box
             sx={{

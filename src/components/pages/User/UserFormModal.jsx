@@ -266,7 +266,7 @@ const UserFormModal = ({ open, onClose, userUpdate }) => {
         onClose={onClose}
         showConfirmButton={isLastStep}
         onConfirm={handleSubmit}
-        labelConfirmButton={dictionary.confirm}
+        labelConfirmButton={dictionary?.confirm || 'Confirm'}
       >
         <Box sx={{ width: { xs: '300px', sm: '400px', md: '500px', lg: '800px' } }}>
           <Typography

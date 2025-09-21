@@ -220,7 +220,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
         onClose={() => setOpen(false)}
         onConfirm={updateUserLang}
         showConfirmButton={true}
-        labelConfirmButton={dictionary.confirm}
+        labelConfirmButton={dictionary?.confirm || 'Confirm'}
         className="custom-modal"
       >
         <Box className="modal-content">
