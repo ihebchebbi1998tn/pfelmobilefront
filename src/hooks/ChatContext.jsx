@@ -70,7 +70,7 @@ export const ChatProvider = ({ children }) => {
 
     connect()
     fetchSessions()
-  }, [isAuthenticated, loading, dictionary, fetchSessions])
+  }, [isAuthenticated, loading, dictionary])
 
   const sendMessage = async (content) => {
     if (!connection) {

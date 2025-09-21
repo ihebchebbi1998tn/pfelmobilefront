@@ -251,7 +251,7 @@ const leaveSession = useCallback(async () => {
       if (conn) conn.stop()
       clearInterval(intervalId)
     }
-  }, [dictionary, fetchUserToUserSessions, isAuthenticated, loading])
+  }, [dictionary, isAuthenticated, loading])
 
 
   const handleTyping = async(recipientUserId) => {
