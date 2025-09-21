@@ -8,14 +8,31 @@ const authService = {
       rememberMe,
       deviceType,
       operatingSystem,
-      browser
+      browser,
     })
-    return res.data
+    const data = res.data
+    try {
+      const accessToken = data?.accessToken || data?.token || data?.jwt || data?.access_token
+      if (accessToken) {
+        // Persist token depending on rememberMe preference
+        if (rememberMe) localStorage.setItem('access_token', accessToken)
+        else sessionStorage.setItem('access_token', accessToken)
+      }
+    } catch {}
+    return data
   },
 
   logout: async () => {
-    const res = await axiosInstance.post(`/gateway/logout`)
-    return res.data
+    try {
+      const res = await axiosInstance.post(`/gateway/logout`)
+      return res.data
+    } finally {
+      // Clear any stored access token on logout
+      try {
+        localStorage.removeItem('access_token')
+        sessionStorage.removeItem('access_token')
+      } catch {}
+    }
   },
 
   ConfirmDevice: async (token) => {

@@ -7,6 +7,20 @@ const axiosInstance = axios.create({
   withCredentials: true,
 })
 
+// Attach Authorization header from storage when available (fallback to cookies)
+axiosInstance.interceptors.request.use((config) => {
+  try {
+    const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token')
+    if (token) {
+      config.headers = config.headers || {}
+      if (!config.headers.Authorization) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+    }
+  } catch {}
+  return config
+})
+
 let isRefreshing = false
 let failedQueue = []
 

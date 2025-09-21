@@ -9,6 +9,8 @@ export const startSignalRConnection = async () => {
   connection = new HubConnectionBuilder()
     .withUrl(`${API_URL}/chathub`, {
       withCredentials: true,
+      accessTokenFactory: () =>
+        localStorage.getItem('access_token') || sessionStorage.getItem('access_token') || '',
     })
     .withAutomaticReconnect()
     .configureLogging(LogLevel.Information)
