@@ -14,10 +14,10 @@ const Button = ({ variant, children, onClick, fullWidth, dis, className }) => {
       fullWidth={fullWidth}
       disabled={dis}
       style={{
-        '--primary-color': user.organization.primaryColor,
-        '--primary-hover-color': darken(user.organization.primaryColor, 0.2) ,
-        '--secondary-color': user.organization.secondaryColor,
-        '--secondary-hover-color': darken(user.organization.secondaryColor, 0.2),
+        '--primary-color': user?.organization?.primaryColor || '#015eb9',
+        '--primary-hover-color': darken(user?.organization?.primaryColor || '#015eb9', 0.2) ,
+        '--secondary-color': user?.organization?.secondaryColor || '#4286f4',
+        '--secondary-hover-color': darken(user?.organization?.secondaryColor || '#4286f4', 0.2),
       }}
       sx={{
         m: 0.5,

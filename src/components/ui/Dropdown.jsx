@@ -16,26 +16,26 @@ const Dropdown = ({ options, value, onChange, label, iserror = false }) => {
         backgroundColor: 'white',
         color: iserror ? '#d32f2f' : '#a3a3a3',
         '.MuiSvgIcon-root ': {
-          fill: iserror ? '#d32f2f' : user.organization.primaryColor,
+          fill: iserror ? '#d32f2f' : (user?.organization?.primaryColor || '#015eb9'),
         },
         '.MuiOutlinedInput-notchedOutline': {
-          borderColor: iserror ? '#d32f2f' : user.organization.primaryColor,
+          borderColor: iserror ? '#d32f2f' : (user?.organization?.primaryColor || '#015eb9'),
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderColor: user.organization.primaryColor,
+          borderColor: user?.organization?.primaryColor || '#015eb9',
         },
         '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: user.organization.primaryColor,
+          borderColor: user?.organization?.primaryColor || '#015eb9',
         },
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
-            borderColor: user.organization.primaryColor,
+            borderColor: user?.organization?.primaryColor || '#015eb9',
           },
           '&:hover fieldset': {
-            borderColor: user.organization.primaryColor,
+            borderColor: user?.organization?.primaryColor || '#015eb9',
           },
           '&.Mui-focused fieldset': {
-            borderColor: user.organization.primaryColor,
+            borderColor: user?.organization?.primaryColor || '#015eb9',
           },
         },
       }}

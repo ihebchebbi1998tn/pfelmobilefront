@@ -12,7 +12,7 @@ const RoleDetails = ({ open, onClose, role }) => {
   const colorModal = `linear-gradient(
     to bottom,
     #373b44,
-    ${user.organization.primaryColor},
+    ${user?.organization?.primaryColor || '#015eb9'},
     rgba(255, 255, 255, 0.6),
     white
     ) !important`

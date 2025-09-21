@@ -103,7 +103,8 @@ useEffect(() => {
       }
     }
   }, [layoutReady])
-  const stepsTutorial = [
+  
+  const stepsTutorial = dictionary ? [
       { target: '.stepSideBar', content: dictionary.StepSideBar },
       { target: '.stepTopbar', content: dictionary.StepTopbar},
       { target: '.toggleSidebarStep', content:
@@ -140,7 +141,7 @@ useEffect(() => {
          </div>
         )  
       },
-    ]
+    ] : []
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', position: 'relative' }}>
       <Loader loading={loading} />
@@ -191,17 +192,17 @@ useEffect(() => {
             showConfirmButton={true}
             onConfirm={Delete}
             variant={'warning'}
-            labelConfirmButton={dictionary.Block}
+            labelConfirmButton={dictionary?.Block || 'Block'}
             title={
               <>
                 {' '}
                 <WarningIcon sx={{ color: 'yellow' }} />{' '}
-                {dictionary.BlockConversation}{' '}
+                {dictionary?.BlockConversation || 'Block Conversation'}{' '}
               </>
             }
             className="custom-modal"
           >
-            <Typography>{dictionary.AreYouSureYouWantToBlockThisConversation}</Typography>
+            <Typography>{dictionary?.AreYouSureYouWantToBlockThisConversation || 'Are you sure you want to block this conversation?'}</Typography>
           </Modal>
           <ChatContainer
             toggleChatDrawer={toggleChatDrawer}

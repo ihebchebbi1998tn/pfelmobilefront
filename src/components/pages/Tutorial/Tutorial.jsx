@@ -33,7 +33,7 @@ const Tutorial = ({open, onClose, steps, beaconSize}) => {
             arrowColor: '#ffffff',
             backgroundColor: '#ffffff',
              overlayColor: 'rgba(0, 0, 0, 0.4)',
-            primaryColor: user.organization.secondaryColor,
+            primaryColor: user?.organization?.secondaryColor || '#4286f4',
             width: 900,
             zIndex: 1300,
           },
