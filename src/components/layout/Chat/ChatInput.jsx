@@ -62,14 +62,14 @@ const ChatInput = ({ isAI, setIsTyping, otherUserId, otherUserData }) => {
     (currentAiSession!=null && (currentAiSession?.endAt!=undefined && currentAiSession?.endAt!=null))
     : (currentUserToUserSession == null?  otherUserId === null : (otherUserId === null || currentUserToUserSession.isDeleted))
 
-  const messageBlock =otherUserData!=null ? (currentUserToUserSession?.userIdWhoDeleted==user?.id ? dictionary.YouBlockedThisConversation : `${otherUserData?.firstName} ${otherUserData?.lastName} ${dictionary.OtherUserBlocked }`) : null
+  const messageBlock =otherUserData!=null ? (currentUserToUserSession?.userIdWhoDeleted==user?.id ? dictionary?.YouBlockedThisConversation || 'You blocked this conversation' : `${otherUserData?.firstName} ${otherUserData?.lastName} ${dictionary?.OtherUserBlocked || 'blocked this conversation'}`) : null
 
   const serviceCreatedMessage =(isAI && currentAiSession!=null && (currentAiSession?.endAt!=undefined && currentAiSession?.endAt!=null) && currentAiSession?.activeStep===5)
-  ? dictionary.serviceRequestCreatedMessage
+  ? dictionary?.serviceRequestCreatedMessage || 'Service request has been created'
   : null
 
   const SessionEndedMessage =(isAI && currentAiSession!=null && (currentAiSession?.endAt!=undefined && currentAiSession?.endAt!=null) && currentAiSession?.activeStep===4)
-  ? dictionary.SessionEnded
+  ? dictionary?.SessionEnded || 'Session ended'
   : null
 
   const addFakeMessage = (file, messageType) => {
@@ -149,12 +149,12 @@ const removeFakeMessage = (tempId) => {
       const isValidSize = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024
       if (!isValidType) {
         hasInvalid = true
-        setErroruserMessage(dictionary.invalidFileType + ' ' + file.name)
+        setErroruserMessage((dictionary?.invalidFileType || 'Invalid file type') + ' ' + file.name)
         break
       }
       if (!isValidSize) {
         hasInvalid = true
-        setErroruserMessage(dictionary.fileTooLarge + ' ' + file.name)
+        setErroruserMessage((dictionary?.fileTooLarge || 'File too large') + ' ' + file.name)
         break
       }
       validFiles.push(file)
@@ -333,7 +333,7 @@ const removeFakeMessage = (tempId) => {
             maxWidth: '90%',
           }}
         >
-          <span style={{ fontSize: '0.9rem' }}>{dictionary.Sending}</span>
+          <span style={{ fontSize: '0.9rem' }}>{dictionary?.Sending || 'Sending'}</span>
           <ThreeDot size="small" color={isDark ? 'white' : 'black'} />
         </div>
       )}
@@ -472,7 +472,7 @@ const removeFakeMessage = (tempId) => {
           ref={inputRef}
           value={input}
           onChange={handleInputChange}
-          placeholder={dictionary.TypeMessageInput}
+          placeholder={dictionary?.TypeMessageInput || 'Type a message'}
           multiline
           fullWidth
           sx={{ maxHeight: '100px', overflow: 'auto' }}

@@ -42,7 +42,7 @@ const { user } = useAuth()
 
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('sm'))
 
-  const [title, setTitle] = useState(dictionary.CustomizeDevicesInterface) 
+  const [title, setTitle] = useState(dictionary?.CustomizeDevicesInterface || 'Customize Devices Interface') 
   const [formMode, setFormMode] = useState(0)
   const [openTutorial, setOpenTutorial] = useState(() => {
     const stored = localStorage.getItem('CustomizeTutorial')
@@ -56,15 +56,15 @@ const { user } = useAuth()
     if(pageReference!=null){
       if(pageReference=="organisation devices"){
           setFormMode(0)
-          setTitle(dictionary.CustomizeDevicesInterface)
+          setTitle(dictionary?.CustomizeDevicesInterface || 'Customize Devices Interface')
       }
       else if(pageReference=="customer devices"){
           setFormMode(1)
-          setTitle(dictionary.CustomizeCustmoerDevicesInterface)
+          setTitle(dictionary?.CustomizeCustmoerDevicesInterface || 'Customize Customer Devices Interface')
       }
       else if(pageReference=="spare parts"){
           setFormMode(2)
-          setTitle(dictionary.CustomizeSparePartsInterface)
+          setTitle(dictionary?.CustomizeSparePartsInterface || 'Customize Spare Parts Interface')
       }
     }
   }, [pageReference])
@@ -157,7 +157,7 @@ const { user } = useAuth()
                                       <Button variant="primary outlined" onClick={() => setOpenTutorial(true)}>
                                         <>
                                           <QuizIcon sx={{ mr: 0.5, mb: 0.2, color:user.organization.primaryColor }} />
-                                          {dictionary.ShowTutorial}
+                                          {dictionary?.ShowTutorial || 'Show Tutorial'}
                                         </>
                                       </Button>
                                     </Box> 
@@ -218,7 +218,7 @@ const { user } = useAuth()
                   <Button variant="primary outlined" onClick={() => setOpenTutorial(true)}>
                     <>
                       <QuizIcon sx={{ mr: 0.5, mb: 0.2, color:user.organization.primaryColor }} />
-                      {dictionary.ShowTutorial}
+                      {dictionary?.ShowTutorial || 'Show Tutorial'}
                     </>
                   </Button>
                 </Box>  
@@ -235,7 +235,7 @@ const { user } = useAuth()
           maxWidth="lg"
         >
             <DialogTitle>
-                 { dictionary.Tutorial}
+                 {dictionary?.Tutorial || 'Tutorial'}
             </DialogTitle>
          
         

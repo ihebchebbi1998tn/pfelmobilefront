@@ -49,13 +49,13 @@ const ChatContainer = ({
   const getInitialHeaderTitle = () => {
     if (user?.permissions?.length > 0) {
       if (user.permissions.includes('Permissions.AllowAll')) {
-        return dictionary.AdminAndAgents
+        return dictionary?.AdminAndAgents || 'Admin and Agents'
       }
       if (user.permissions.includes('Permissions.Messages.Clients')) {
-        return dictionary.Client
+        return dictionary?.Client || 'Client'
       }
       if (user.permissions.includes('Permissions.Messages.Users')) {
-        return dictionary.SupportAgent
+        return dictionary?.SupportAgent || 'Support Agent'
       }
     }
     return null
@@ -266,7 +266,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
                   fontSize: { xs: '1.1rem', sm: '1.4rem', md: '1.6rem' },
                 }}
               >
-                {dictionary.Hi} {userName} 👋
+                {dictionary?.Hi || 'Hi'} {userName} 👋
               </Typography>
             </Box>
             <Box
@@ -284,7 +284,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
                   fontSize: { xs: '1.1rem', sm: '1.4rem', md: '1.6rem' },
                 }}
               >
-                {dictionary.HowCanWeHelp}
+                {dictionary?.HowCanWeHelp || 'How can we help?'}
               </Typography>
             </Box>
             {showButtonChatUsers && (
@@ -320,7 +320,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
                     setIsAI(false)
                   }}
                 >
-                  <span>{dictionary.TalkToAgent}</span>
+                  <span>{dictionary?.TalkToAgent || 'Talk to Agent'}</span>
                   <Badge
                     color="error"
                     badgeContent={unreadMessages.total}
@@ -370,7 +370,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
                     setIsAI(true)
                   }}
                 >
-                  <span>{dictionary.TalkToChatbot}</span>
+                  <span>{dictionary?.TalkToChatbot || 'Talk to Chatbot'}</span>
                   <SendIcon sx={{ fontSize: 20, color: 'black' }} />
                 </Button>
               </Box>
@@ -381,7 +381,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
           <>
             <ChatHeader
               title={
-                mode === 'ai' ? dictionary.AiAssitant : headerTitle
+                mode === 'ai' ? dictionary?.AiAssitant || 'AI Assistant' : headerTitle
               }
               otherUserImage={otherUserImage}
               setOtherUserId={setOtherUserId}

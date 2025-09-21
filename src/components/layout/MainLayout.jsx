@@ -105,12 +105,12 @@ useEffect(() => {
   }, [layoutReady])
   
   const stepsTutorial = dictionary ? [
-      { target: '.stepSideBar', content: dictionary.StepSideBar },
-      { target: '.stepTopbar', content: dictionary.StepTopbar},
+      { target: '.stepSideBar', content: dictionary?.StepSideBar || 'Step Sidebar' },
+      { target: '.stepTopbar', content: dictionary?.StepTopbar || 'Step Topbar'},
       { target: '.toggleSidebarStep', content:
         (
          <div>
-            <p>{dictionary.ToggleSidebarStep}</p>
+            <p>{dictionary?.ToggleSidebarStep || 'Toggle Sidebar Step'}</p>
             <video
              src={"https://dl.dropboxusercontent.com/scl/fi/7j6zq77zgvrbywi748if9/toggleSideBar.mp4?rlkey=7a6xbjrbb7iql1di66to90erc&st=j3dpaoju"}
              autoPlay
@@ -122,14 +122,14 @@ useEffect(() => {
          </div>
         )  
       },
-      { target: '.languagestep', content: dictionary.Languagestep },
-      { target: '.themestep', content: dictionary.Themestep },
-      { target: '.notificationStep', content: dictionary.NotificationStep },
-      { target: '.profileSep', content: dictionary.ProfileSep },
+      { target: '.languagestep', content: dictionary?.Languagestep || 'Language step' },
+      { target: '.themestep', content: dictionary?.Themestep || 'Theme step' },
+      { target: '.notificationStep', content: dictionary?.NotificationStep || 'Notification step' },
+      { target: '.profileSep', content: dictionary?.ProfileSep || 'Profile step' },
       { target: '.messageContainerStep', content: 
         (
          <div>
-            <p>{dictionary.MessageContainerStep}</p>
+            <p>{dictionary?.MessageContainerStep || 'Message Container Step'}</p>
             <video
              src={"https://dl.dropboxusercontent.com/scl/fi/y973vuwwqvwhd4qazclvv/openChatContainer.mp4?rlkey=pnp71p0obj94wvdntyn4b93tl&st=zkak5j1k&dl=0"}
              autoPlay

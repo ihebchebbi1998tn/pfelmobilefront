@@ -225,12 +225,12 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
       >
         <Box className="modal-content">
           <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
-            {dictionary.ConfirmLanguageUpdate}
+            {dictionary?.ConfirmLanguageUpdate || 'Confirm Language Update'}
           </Typography>
         </Box>
       </Modal>
       <Dialog open={notifDialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>{dictionary.NotificationDetail}</DialogTitle>
+        <DialogTitle>{dictionary?.NotificationDetail || 'Notification Detail'}</DialogTitle>
         <DialogContent>
           <Typography variant="body1" gutterBottom>
             {selectedNotif?.content}
@@ -240,7 +240,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>{dictionary.Close}</Button>
+          <Button onClick={handleCloseDialog}>{dictionary?.Close || 'Close'}</Button>
         </DialogActions>
       </Dialog>
 
@@ -292,7 +292,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                 mb:isCollapsed? 1.5 : 0
               }}
             >
-              <InputBase placeholder={dictionary.Search} />
+              <InputBase placeholder={dictionary?.Search || 'Search'} />
                <SearchIcon
                 sx={{ color: '#858584', cursor: 'pointer' }}
               />
@@ -348,7 +348,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                   width="20"
                   style={{ borderRadius: '2px', marginRight: '3px' }}
                 />{' '}
-                {dictionary.French} (FR)
+                {dictionary?.French || 'French'} (FR)
               </MenuItem>
               <MenuItem value="en" sx={{ fontSize: 'small' }}>
                 <img
@@ -357,7 +357,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                   width="20"
                   style={{ borderRadius: '2px', marginRight: '3px' }}
                 />{' '}
-                {dictionary.English} (EN)
+                {dictionary?.English || 'English'} (EN)
               </MenuItem>
               <MenuItem value="de" sx={{ fontSize: 'small' }}>
                 <img
@@ -366,7 +366,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                   width="20"
                   style={{ borderRadius: '2px', marginRight: '3px' }}
                 />{' '}
-                {dictionary.German} (DE)
+                {dictionary?.German || 'German'} (DE)
               </MenuItem>
             </Select>
             <ThemeToggleButton marginBottom={isCollapsed? "5px" : "0"} className="themestep"/>
@@ -425,7 +425,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
                       marginBottom: 1,
                     }}
                   >
-                    {dictionary.Notifications}
+                    {dictionary?.Notifications || 'Notifications'}
                   </Typography>
                 </Box>
 
