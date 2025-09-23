@@ -211,14 +211,18 @@ const ChatAgentContent = ({ handleconectedUsersClick, connectedUsers, otherUserI
                 </Box>
 
                
-                <Badge
+                 <Badge
                   color="error"
                    badgeContent={
-                      unreadMessages.sessions.find(s => s.otherUserId === u.id)?.unreadCount || 0
+                      (unreadMessages?.sessions && Array.isArray(unreadMessages.sessions)) 
+                        ? (unreadMessages.sessions.find(s => s.otherUserId === u.id)?.unreadCount || 0)
+                        : 0
                     }
                     invisible={
-                      unreadMessages.sessions.find(s => s.otherUserId === u.id)?.unreadCount === 0 ||
-                      !unreadMessages.sessions.find(s => s.otherUserId === u.id)
+                      (unreadMessages?.sessions && Array.isArray(unreadMessages.sessions))
+                        ? (unreadMessages.sessions.find(s => s.otherUserId === u.id)?.unreadCount === 0 ||
+                           !unreadMessages.sessions.find(s => s.otherUserId === u.id))
+                        : true
                     }
                   sx={{
                     '& .MuiBadge-badge': {
@@ -239,7 +243,9 @@ const ChatAgentContent = ({ handleconectedUsersClick, connectedUsers, otherUserI
   }
 
   if (otherUserId != null && userToUserMessages.length === 0) {
-  const otherUser = connectedUsers.find(u => u.id === otherUserId);
+  const otherUser = (connectedUsers && Array.isArray(connectedUsers)) 
+    ? connectedUsers.find(u => u.id === otherUserId) 
+    : null;
 
   if (otherUser) {
     const userImage = (otherUser?.imageUrl !=null && otherUser?.imageName !=null) ? otherUser?.imageUrl : null

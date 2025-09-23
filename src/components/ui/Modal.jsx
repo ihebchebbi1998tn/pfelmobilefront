@@ -59,7 +59,7 @@ const Modal = ({
         }}
       >
         <DialogTitle>{title}</DialogTitle>
-        <DialogContent>{children}</DialogContent>
+        <DialogContent aria-describedby="modal-content-description">{children}</DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant={'outlined secondary'}>
             {dictionary?.close || 'Close'}

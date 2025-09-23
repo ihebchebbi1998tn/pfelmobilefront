@@ -67,7 +67,8 @@ const [openTutorial, setOpenTutorial] = useState(() => {
  }
 
  const installationsByStatus = STATUSES.reduce((acc, status) => {
-    acc[status] = installations.filter((i) => i.status === status)
+    const installationsArray = Array.isArray(installations) ? installations : []
+    acc[status] = installationsArray.filter((i) => i.status === status)
     return acc
   }, {})
   const getTitleCard = (s) =>{
@@ -206,11 +207,17 @@ const [openTutorial, setOpenTutorial] = useState(() => {
  const fetchInstallationsData = async () => {
     try {
       const data = await installationRequestService.getAllInstallationRequest(user.organization.id)
-      if (data) {
+      console.log('Installation data:', data) // Debug log
+      if (data && data.items) {
+        setInstallations(data.items)
+      } else if (Array.isArray(data)) {
         setInstallations(data)
+      } else {
+        setInstallations([])
       }
     } catch (e) {
       console.log(e)
+      setInstallations([])
     }
   }
 

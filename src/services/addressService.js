@@ -1,52 +1,49 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const addressService = {
   addAddress: async (address) => {
-    const res = await axiosInstance.post(`/user/api/address`, address)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockAddresses', address)
   },
 
   GetAddressById: async (id) => {
-    const res = await axiosInstance.get(`/user/api/address/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.getById('mockAddresses', id)
   },
 
   GetAddressByUserId: async (id) => {
-    const res = await axiosInstance.get(`/user/api/address/ByUser/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    const addresses = localStorageService.getAll('mockAddresses', { page: 1, pageSize: 1000 })
+    return addresses.items.filter(addr => addr.userId === id)
   },
 
   getAllAddresses: async (page, pageSize, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    const result = localStorageService.getAll('mockAddresses', {
+      page,
+      pageSize,
+      searchTerm
     })
-
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
-    }
-
-    const res = await axiosInstance.get(
-      `/user/api/address/all?${params.toString()}`
-    )
-    return res.data
+    
+    console.log('Address service result:', result)
+    return result
   },
 
   GetAllNotAffectedToUser: async () => {
-    const res = await axiosInstance.get(
-      `/user/api/address/all?page=${1}&pageSize=${20}`
-    )
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    const addresses = localStorageService.getAll('mockAddresses', { page: 1, pageSize: 20 })
+    return addresses.items.filter(addr => !addr.userId)
   },
 
   updateAddress: async (addressData) => {
-    const res = await axiosInstance.put(`/user/api/address`, addressData)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockAddresses', addressData.id, addressData)
   },
 
   DeleteAddress: async (id) => {
-    const res = await axiosInstance.delete(`/user/api/address/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockAddresses', id)
   },
 }
 

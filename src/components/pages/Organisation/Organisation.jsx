@@ -95,7 +95,7 @@ const Organisation = () => {
         setAllDeltedOrganisations(data)
       }
     } catch (e) {
-      const message = e.response.data.message
+      const message = e?.response?.data?.message || 'Failed to fetch deleted organizations'
       setTypeSnack('error')
       setMessageSnack(dictionary.GetOrganisationFailed || message)
       setOpenSnackBar(true)

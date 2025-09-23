@@ -1,15 +1,24 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const feedbackService = {
-    
   addFeedback: async (feedback) => {
-    const res = await axiosInstance.post(`/service/api/Feedback`, feedback)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockFeedback', feedback)
+  },
+
+  getAllFeedback: async (page = 1, pageSize = 100) => {
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.getAll('mockFeedback', { page, pageSize })
   },
 
   updateFeedback: async (feedback) => {
-    const res = await axiosInstance.post(`/service/api/Feedback/update`, feedback)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockFeedback', feedback.id, feedback)
+  },
+
+  deleteFeedback: async (id) => {
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockFeedback', id)
   },
 
 }

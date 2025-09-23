@@ -36,7 +36,19 @@ const UiPagesSparePartsForm = ({ onCloseRightDrawer, toggleLoader}) => {
   const theme = useTheme()
   const { dictionary } = useLanguage()
   const isDark = theme.palette.mode === 'dark'
-  const { handleChangePageReference, setUiPage, uiPage } = useOrganisation()
+  
+  // Safely get organisation context with fallback
+  let handleChangePageReference = () => {}
+  let setUiPage = () => {}
+  let uiPage = null
+  try {
+    const orgContext = useOrganisation()
+    handleChangePageReference = orgContext?.handleChangePageReference || (() => {})
+    setUiPage = orgContext?.setUiPage || (() => {})
+    uiPage = orgContext?.uiPage || null
+  } catch (error) {
+    console.warn('OrganisationProvider not available in UiPagesSparePartsForm context')
+  }
   const [darkModeColor, setDarkModeColor] = useState(uiPage?.darkModeColor ?? '#18141c')
   const [lightModeColor, setLightModeColor] = useState(uiPage?.lightModeColor ?? '#eeefef')
   const [layout, setLayout] = useState(uiPage?.layout ?? 'Table')

@@ -1,0 +1,248 @@
+[
+  {
+    "id": "1",
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin@lmobile.com",
+    "password": "admin123",
+    "phoneNumber": "+1234567890",
+    "address": "addr-001",
+    "permissions": ["Permissions.AllowAll"],
+    "defaultLanguage": "en",
+    "imageUrl": null,
+    "imageName": null,
+    "isActive": true,
+    "isDeleted": false,
+    "clientOrganization": {
+      "id": "1",
+      "name": "L-Mobile",
+      "description": "Main organization",
+      "isActive": true,
+      "primaryColor": "#1976d2"
+    },
+    "roles": [
+      {
+        "id": "1",
+        "name": "Admin",
+        "permissions": ["Permissions.AllowAll"]
+      }
+    ],
+    "connectedDevices": [
+      {
+        "id": "cd-001",
+        "deviceType": "Desktop",
+        "operatingSystem": "Windows 11",
+        "browser": "Chrome 121.0",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-20T10:00:00Z",
+        "ipAddress": "192.168.1.100"
+      },
+      {
+        "id": "cd-002",
+        "deviceType": "Mobile",
+        "operatingSystem": "iOS 17.2",
+        "browser": "Safari 17.0",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-19T15:30:00Z",
+        "ipAddress": "192.168.1.105"
+      },
+      {
+        "id": "cd-003",
+        "deviceType": "Tablet",
+        "operatingSystem": "Android 14",
+        "browser": "Chrome Mobile 120.0",
+        "isConfirmed": false,
+        "lastAccess": "2024-12-18T09:15:00Z",
+        "ipAddress": "192.168.1.110"
+      }
+    ],
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-12-20T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@lmobile.com",
+    "password": "password123",
+    "phoneNumber": "+1234567891",
+    "address": "addr-002",
+    "permissions": ["Permissions.Services.Manage", "Permissions.Devices.Manage"],
+    "defaultLanguage": "en",
+    "imageUrl": null,
+    "imageName": null,
+    "isActive": true,
+    "isDeleted": false,
+    "clientOrganization": {
+      "id": "1",
+      "name": "L-Mobile",
+      "description": "Main organization",
+      "isActive": true,
+      "primaryColor": "#1976d2"
+    },
+    "roles": [
+      {
+        "id": "2",
+        "name": "Technician",
+        "permissions": ["Permissions.Services.Manage", "Permissions.Devices.Manage"]
+      }
+    ],
+    "connectedDevices": [
+      {
+        "id": "cd-004",
+        "deviceType": "Mobile",
+        "operatingSystem": "Android 13",
+        "browser": "Chrome Mobile 119.0",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-20T08:45:00Z",
+        "ipAddress": "192.168.1.120"
+      },
+      {
+        "id": "cd-005",
+        "deviceType": "Desktop",
+        "operatingSystem": "macOS Sonoma",
+        "browser": "Safari 17.1",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-19T16:20:00Z",
+        "ipAddress": "192.168.1.125"
+      }
+    ],
+    "createdAt": "2024-01-15T09:30:00Z",
+    "updatedAt": "2024-11-20T14:20:00Z"
+  },
+  {
+    "id": "3",
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "email": "sarah.johnson@lmobile.com",
+    "password": "password123",
+    "phoneNumber": "+1234567892",
+    "address": "addr-003",
+    "permissions": ["Permissions.Services.Manage", "Permissions.Devices.Manage"],
+    "defaultLanguage": "en",
+    "imageUrl": null,
+    "imageName": null,
+    "isActive": true,
+    "isDeleted": false,
+    "clientOrganization": {
+      "id": "1",
+      "name": "L-Mobile",
+      "description": "Main organization",
+      "isActive": true,
+      "primaryColor": "#1976d2"
+    },
+    "roles": [
+      {
+        "id": "2",
+        "name": "Technician",
+        "permissions": ["Permissions.Services.Manage", "Permissions.Devices.Manage"]
+      }
+    ],
+    "connectedDevices": [
+      {
+        "id": "cd-006", 
+        "deviceType": "Desktop",
+        "operatingSystem": "Ubuntu 22.04",
+        "browser": "Firefox 120.0",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-20T09:30:00Z",
+        "ipAddress": "192.168.1.130"
+      }
+    ],
+    "createdAt": "2024-02-01T11:00:00Z",
+    "updatedAt": "2024-10-15T16:30:00Z"
+  },
+  {
+    "id": "4",
+    "firstName": "Mike",
+    "lastName": "Wilson",
+    "email": "mike.wilson@lmobile.com",
+    "password": "password123",
+    "phoneNumber": "+1234567893",
+    "address": "addr-004",
+    "permissions": ["Permissions.Services.Manage"],
+    "defaultLanguage": "en",
+    "imageUrl": null,
+    "imageName": null,
+    "isActive": true,
+    "isDeleted": false,
+    "clientOrganization": {
+      "id": "1",
+      "name": "L-Mobile",
+      "description": "Main organization",
+      "isActive": true,
+      "primaryColor": "#1976d2"
+    },
+    "roles": [
+      {
+        "id": "3",
+        "name": "Service Specialist",
+        "permissions": ["Permissions.Services.Manage"]
+      }
+    ],
+    "connectedDevices": [
+      {
+        "id": "cd-007",
+        "deviceType": "Mobile",
+        "operatingSystem": "iOS 16.7",
+        "browser": "Safari 16.6",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-19T14:15:00Z",
+        "ipAddress": "192.168.1.135"
+      },
+      {
+        "id": "cd-008",
+        "deviceType": "Tablet",
+        "operatingSystem": "iPadOS 17.1",
+        "browser": "Safari 17.1",
+        "isConfirmed": false,
+        "lastAccess": "2024-12-17T11:45:00Z",
+        "ipAddress": "192.168.1.140"
+      }
+    ],
+    "createdAt": "2024-03-10T08:45:00Z",
+    "updatedAt": "2024-12-01T12:15:00Z"
+  },
+  {
+    "id": "5",
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@lmobile.com",
+    "password": "password123",
+    "phoneNumber": "+1234567894",
+    "address": "addr-005",
+    "permissions": ["Permissions.Users.Read", "Permissions.Orders.Manage"],
+    "defaultLanguage": "en",
+    "imageUrl": null,
+    "imageName": null,
+    "isActive": true,
+    "isDeleted": false,
+    "clientOrganization": {
+      "id": "1",
+      "name": "L-Mobile",
+      "description": "Main organization",
+      "isActive": true,
+      "primaryColor": "#1976d2"
+    },
+    "roles": [
+      {
+        "id": "4",
+        "name": "Customer Service",
+        "permissions": ["Permissions.Users.Read", "Permissions.Orders.Manage"]
+      }
+    ],
+    "connectedDevices": [
+      {
+        "id": "cd-009",
+        "deviceType": "Desktop",
+        "operatingSystem": "Windows 10",
+        "browser": "Edge 120.0",
+        "isConfirmed": true,
+        "lastAccess": "2024-12-20T13:00:00Z",
+        "ipAddress": "192.168.1.145"
+      }
+    ],
+    "createdAt": "2024-04-05T13:20:00Z",
+    "updatedAt": "2024-11-30T09:40:00Z"
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "id": "1",
+    "name": "Admin",
+    "description": "Full system administrator with all permissions",
+    "permissions": ["Permissions.AllowAll"],
+    "isActive": true,
+    "userCount": 1,
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "2",
+    "name": "Technician",
+    "description": "Field technician with service and device management permissions",
+    "permissions": [
+      "Permissions.Services.Manage",
+      "Permissions.Devices.Manage",
+      "Permissions.ServiceRequests.Manage",
+      "Permissions.InstallationRequests.Manage"
+    ],
+    "isActive": true,
+    "userCount": 2,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-06-20T14:30:00Z"
+  },
+  {
+    "id": "3",
+    "name": "Service Specialist",
+    "description": "Specialized service technician focused on specific service types",
+    "permissions": [
+      "Permissions.Services.Manage",
+      "Permissions.ServiceRequests.Manage",
+      "Permissions.SpareParts.Read"
+    ],
+    "isActive": true,
+    "userCount": 1,
+    "createdAt": "2024-02-01T09:30:00Z",
+    "updatedAt": "2024-08-15T11:45:00Z"
+  },
+  {
+    "id": "4",
+    "name": "Customer Service",
+    "description": "Customer service representative with order and user management",
+    "permissions": [
+      "Permissions.Users.Read",
+      "Permissions.Orders.Manage",
+      "Permissions.Invoices.Read",
+      "Permissions.Addresses.Read"
+    ],
+    "isActive": true,
+    "userCount": 1,
+    "createdAt": "2024-03-01T12:00:00Z",
+    "updatedAt": "2024-09-10T16:20:00Z"
+  },
+  {
+    "id": "5",
+    "name": "Inventory Manager",
+    "description": "Manages spare parts and inventory operations",
+    "permissions": [
+      "Permissions.SpareParts.Manage",
+      "Permissions.Devices.Read",
+      "Permissions.Orders.Read",
+      "Permissions.Invoices.Read"
+    ],
+    "isActive": true,
+    "userCount": 0,
+    "createdAt": "2024-04-01T08:15:00Z",
+    "updatedAt": "2024-10-05T13:50:00Z"
+  },
+  {
+    "id": "6",
+    "name": "Read Only",
+    "description": "Read-only access for reporting and viewing purposes",
+    "permissions": [
+      "Permissions.Users.Read",
+      "Permissions.Devices.Read",
+      "Permissions.Services.Read",
+      "Permissions.Orders.Read",
+      "Permissions.Invoices.Read"
+    ],
+    "isActive": false,
+    "userCount": 0,
+    "createdAt": "2024-05-01T14:30:00Z",
+    "updatedAt": "2024-07-20T10:10:00Z"
+  }
+]

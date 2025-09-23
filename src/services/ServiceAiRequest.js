@@ -1,53 +1,41 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const ServiceAiRequest = {
     
   getAllServiceRequest: async (page, pageSize, companyId, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      companyId: companyId.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    return localStorageService.getAll('mockServiceRequestsAi', {
+      page,
+      pageSize,
+      companyId,
+      searchTerm
     })
-
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
-    }
-
-    const res = await axiosInstance.get(
-      `/service/api/ServiceRequestAi?${params.toString()}`
-    )
-    return res.data
   },
 
   addPaymentMethode: async (id, methode) => {
-    const res = await axiosInstance.put(`/service/api/ServiceRequestAi/payment/${id}/${methode}`, null)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockServiceRequestsAi', id, { paymentMethod: methode })
   },
 
   toggleServiceRequestStatus: async (serviceRequest) => {
-    const res = await axiosInstance.post(`/service/api/ServiceRequestAi/toggle`, serviceRequest)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    const current = localStorageService.getById('mockServiceRequestsAi', serviceRequest.id)
+    if (current) {
+      return localStorageService.update('mockServiceRequestsAi', serviceRequest.id, {
+        status: serviceRequest.status
+      })
+    }
+    return null
   },
 
   DownloadInvoiceServiceRequestAi: async (id, lang, city, streetName, zipCode, phone, email) => {
-  const params = new URLSearchParams({
-    lang: lang || '',
-    city: city || '',
-    streetName: streetName || '',
-    zipCode: zipCode || '',
-    phone: phone || '',
-    email: email || '',
-  });
-
-  const res = await axiosInstance.get(
-    `/service/api/ServiceRequestAi/${id}/download?${params.toString()}`,
-    {
-      responseType: 'blob', 
-    }
-  )
-
-  return res.data
- }
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    // Mock PDF blob data
+    const pdfContent = new Blob(['Mock PDF content for AI service request ' + id], { type: 'application/pdf' })
+    return pdfContent
+  }
 }
 
 export default ServiceAiRequest

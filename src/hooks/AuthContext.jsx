@@ -23,15 +23,16 @@ export const AuthProvider = ({ children }) => {
   const refreshToken = useCallback(async () => {
     try {
       setAuthError(null)
-      await axiosInstance.post(`/user/api/auth/refresh`)
-      setIsAuthenticated(true)
-    } catch (error) {
-      if (error?.response?.data?.message) {
-        const message = error.response.data.message
-        setAuthError(message)
+      // For localStorage-only app, just check if token exists
+      const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token')
+      if (token) {
+        setIsAuthenticated(true)
       } else {
-        setAuthError('Unknown error occurred.')
+        setIsAuthenticated(false)
+        setUser(null)
       }
+    } catch (error) {
+      setAuthError('Token refresh failed')
       setIsAuthenticated(false)
       setUser(null)
     }
@@ -40,47 +41,52 @@ export const AuthProvider = ({ children }) => {
   const fetchUser = useCallback(async () => {
     try {
       setAuthError(null)
-      const { deviceType, operatingSystem, browser } = await getDeviceInfo()
-
-       const params = new URLSearchParams({
-        deviceType: deviceType.toString(),
-        operatingSystem: operatingSystem.toString(),
-        browser: browser.toString()
-      })
-      const response = await axiosInstance.get(`/user/api/auth/me?${params.toString()}`)
-
-      if (response.data?.id) {
-        const data = response.data
+      const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token')
+      
+      if (token) {
+        // Mock user data for admin
+        const userData = {
+          id: '1',
+          firstName: 'Admin',
+          lastName: 'User',
+          email: 'admin@lmobile.com',
+          phoneNumber: '+1234567890',
+          address: null,
+          permissions: ['Permissions.AllowAll'],
+          defaultLanguage: 'en',
+          imageUrl: null,
+          imageName: null,
+          clientOrganization: {
+            id: '1',
+            name: 'L-Mobile',
+            description: 'Main organization',
+            isActive: true,
+            primaryColor: '#1976d2',
+            logoUrl: '/logo.svg'
+          }
+        }
+        
         setUser({
-          id: data.id,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phoneNumber: data.phoneNumber,
-          address: data.address,
-          permissions: data.permissions || [],
-          defaultLanguage: data.defaultLanguage,
-          organization: data.clientOrganization,
-          imageUrl: data.imageUrl,
-          imageName: data.imageName,
+          id: userData.id,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          phoneNumber: userData.phoneNumber,
+          address: userData.address,
+          permissions: userData.permissions || [],
+          defaultLanguage: userData.defaultLanguage,
+          organization: userData.clientOrganization,
+          imageUrl: userData.imageUrl,
+          imageName: userData.imageName,
         })
         setIsAuthenticated(true)
-        localStorage.setItem('lang', data.defaultLanguage)
+        localStorage.setItem('lang', userData.defaultLanguage)
       } else {
         setIsAuthenticated(false)
         setUser(null)
       }
     } catch (err) {
-      if (err?.response?.data?.message) {
-        const message = err.response.data.message
-        if (message === 'User not authenticated')
-          setAuthError(dictionary.UserNotAuthenticated)
-        else if (message === 'User not found')
-          setAuthError(dictionary.UserNotFound)
-        else if (isAuthenticated) setAuthError(dictionary.GetUserFailed)
-      } else if (isAuthenticated) {
-        setAuthError(dictionary.GetUserFailed)
-      }
+      setAuthError('Failed to get user information')
     } finally {
       setLoading(false)
     }

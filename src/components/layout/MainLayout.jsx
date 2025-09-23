@@ -28,12 +28,12 @@ const MainLayout = () => {
   const [isAI, setIsAI] = useState(false)
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const {
-    setUserToUserMessages,
-    deleteUserToUserSession,
-    setUserToUserSessionId,
-    userToUserSessionId,
-    leaveSession
-  } = useUserToUserChat()
+    setUserToUserMessages = () => {},
+    deleteUserToUserSession = () => {},
+    setUserToUserSessionId = () => {},
+    userToUserSessionId = null,
+    leaveSession = () => {}
+  } = useUserToUserChat() || {}
    const toggleIsCollapsed = () => {
     setIsCollapsed(!isCollapsed)
   }

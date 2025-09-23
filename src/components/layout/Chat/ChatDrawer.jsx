@@ -154,7 +154,7 @@ const ChatDrawer = ({ open, onClose, anchor, toggleLoader, isAI }) => {
     const currentUserId = user?.id
     const otherUserId =
       session.user1Id === currentUserId ? session.user2Id : session.user1Id
-    return users.find((u) => u.id === otherUserId)
+    return (users && Array.isArray(users)) ? users.find((u) => u.id === otherUserId) : null
   }
 
   const getLastMessageDisplay = (message) => {
@@ -212,6 +212,14 @@ const ChatDrawer = ({ open, onClose, anchor, toggleLoader, isAI }) => {
   }
 
   const renderUserToUserSessionList = (sessions) => {
+    if (!sessions || !Array.isArray(sessions)) {
+      return (
+        <Typography sx={{ textAlign: 'center' }}>
+          {dictionary.NoSessionsAvailable}
+        </Typography>
+      )
+    }
+    
     const sortedSessions = [...sessions].sort((a, b) => {
       const aTime = new Date(
         a.messages?.[a.messages.length - 1]?.timestamp || 0

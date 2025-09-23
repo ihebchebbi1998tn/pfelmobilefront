@@ -1,20 +1,18 @@
-import axiosInstance from '../utils/axiosInstance'
-
 const geminiService = {
     
   uploadUsers: async (data) => {
-    const res = await axiosInstance.post(`/user/api/gemini/upload`, data)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return { success: true, message: 'Users uploaded successfully' }
   },
 
    uploadDevices: async (data) => {
-    const res = await axiosInstance.post(`/user/api/gemini/upload_devices`, data)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return { success: true, message: 'Devices uploaded successfully' }
   },
 
   uploadSpareParts: async (data) => {
-    const res = await axiosInstance.post(`/user/api/gemini/upload_spare_parts`, data)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return { success: true, message: 'Spare parts uploaded successfully' }
   },
 }
 

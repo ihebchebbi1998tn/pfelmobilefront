@@ -1,0 +1,258 @@
+[
+  {
+    "id": "ir-001",
+    "requestNumber": "IR-2024-001",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Smart Building System Installation",
+    "description": "Complete smart building system installation including HVAC controls, security cameras, access control, and environmental monitoring for new office building.",
+    "priority": "High",
+    "status": "In Progress",
+    "requestDate": "2024-11-15T10:30:00Z",
+    "scheduledDate": "2024-12-28T08:00:00Z",
+    "estimatedCompletionDate": "2025-01-15T17:00:00Z",
+    "actualCompletionDate": null,
+    "estimatedCost": 45000.00,
+    "actualCost": null,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": {
+      "building": "Corporate Tower B",
+      "address": "123 Enterprise Blvd, Suite 500",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA",
+      "floor": "5th Floor",
+      "area": "Complete floor - 5000 sq ft"
+    },
+    "devices": [
+      {
+        "deviceId": "dev-001",
+        "deviceName": "Smart Thermostat Pro",
+        "quantity": 6,
+        "installationNotes": "One unit per zone for optimal climate control"
+      },
+      {
+        "deviceId": "dev-002",
+        "deviceName": "Security Camera 360",
+        "quantity": 12,
+        "installationNotes": "Strategic placement for complete coverage"
+      },
+      {
+        "deviceId": "dev-003",
+        "deviceName": "Smart Lock Elite",
+        "quantity": 8,
+        "installationNotes": "Main entrance and office doors"
+      },
+      {
+        "deviceId": "dev-004",
+        "deviceName": "Environmental Sensor Hub",
+        "quantity": 10,
+        "installationNotes": "Distributed throughout workspace"
+      }
+    ],
+    "assignedTeam": [
+      {
+        "technicianId": "tech-001",
+        "name": "John Smith",
+        "role": "Lead Installer",
+        "specialization": "HVAC Systems"
+      },
+      {
+        "technicianId": "tech-002",
+        "name": "Sarah Johnson",
+        "role": "Security Specialist",
+        "specialization": "Camera & Access Control"
+      },
+      {
+        "technicianId": "tech-004",
+        "name": "David Brown",
+        "role": "Network Technician",
+        "specialization": "System Integration"
+      }
+    ],
+    "workLog": [
+      {
+        "id": "log-ir-001",
+        "timestamp": "2024-11-15T10:30:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Initial installation request for new office space"
+      },
+      {
+        "id": "log-ir-002",
+        "timestamp": "2024-11-16T14:20:00Z",
+        "author": "John Smith",
+        "action": "Site Survey Completed",
+        "notes": "Completed site survey and technical assessment"
+      },
+      {
+        "id": "log-ir-003",
+        "timestamp": "2024-12-05T09:15:00Z",
+        "author": "Sarah Johnson",
+        "action": "Installation Planning",
+        "notes": "Installation schedule and team assignments finalized"
+      }
+    ],
+    "requirements": [
+      "Network infrastructure setup",
+      "Power outlets for all devices",
+      "Building access for installation team",
+      "Coordination with building management",
+      "Post-installation testing and commissioning"
+    ],
+    "notes": "High-priority installation for executive floor. Coordinate with building management for after-hours access.",
+    "createdAt": "2024-11-15T10:30:00Z",
+    "updatedAt": "2024-12-05T09:15:00Z"
+  },
+  {
+    "id": "ir-002",
+    "requestNumber": "IR-2024-002",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Security System Upgrade",
+    "description": "Upgrade existing security system with new cameras and access control devices for enhanced facility protection.",
+    "priority": "Medium",
+    "status": "Scheduled",
+    "requestDate": "2024-12-10T15:45:00Z",
+    "scheduledDate": "2025-01-05T09:00:00Z",
+    "estimatedCompletionDate": "2025-01-08T16:00:00Z",
+    "actualCompletionDate": null,
+    "estimatedCost": 18500.00,
+    "actualCost": null,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": {
+      "building": "Main Office Building",
+      "address": "456 Business Ave",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90210",
+      "country": "USA",
+      "floor": "Ground Floor",
+      "area": "Lobby and perimeter"
+    },
+    "devices": [
+      {
+        "deviceId": "dev-002",
+        "deviceName": "Security Camera 360",
+        "quantity": 8,
+        "installationNotes": "Replace legacy cameras with 4K models"
+      },
+      {
+        "deviceId": "dev-003",
+        "deviceName": "Smart Lock Elite",
+        "quantity": 4,
+        "installationNotes": "Upgrade to biometric access control"
+      }
+    ],
+    "assignedTeam": [
+      {
+        "technicianId": "tech-002",
+        "name": "Sarah Johnson",
+        "role": "Lead Security Installer",
+        "specialization": "Security Systems"
+      },
+      {
+        "technicianId": "tech-003",
+        "name": "Mike Wilson",
+        "role": "Access Control Specialist",
+        "specialization": "Smart Locks"
+      }
+    ],
+    "workLog": [
+      {
+        "id": "log-ir-004",
+        "timestamp": "2024-12-10T15:45:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Security upgrade request for improved facility protection"
+      },
+      {
+        "id": "log-ir-005",
+        "timestamp": "2024-12-12T11:30:00Z",
+        "author": "Sarah Johnson",
+        "action": "Technical Review",
+        "notes": "Reviewed existing infrastructure and upgrade requirements"
+      }
+    ],
+    "requirements": [
+      "Remove existing legacy cameras",
+      "Upgrade network infrastructure if needed",
+      "User training for new access control system",
+      "Integration with existing security management system"
+    ],
+    "notes": "Schedule during weekend to minimize business disruption. Ensure backup security during installation.",
+    "createdAt": "2024-12-10T15:45:00Z",
+    "updatedAt": "2024-12-12T11:30:00Z"
+  },
+  {
+    "id": "ir-003",
+    "requestNumber": "IR-2024-003",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Environmental Monitoring Setup",
+    "description": "Install comprehensive environmental monitoring system for air quality management and energy efficiency optimization.",
+    "priority": "Low",
+    "status": "Pending Approval",
+    "requestDate": "2024-12-18T13:20:00Z",
+    "scheduledDate": null,
+    "estimatedCompletionDate": "2025-02-15T16:00:00Z",
+    "actualCompletionDate": null,
+    "estimatedCost": 12000.00,
+    "actualCost": null,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": {
+      "building": "Research & Development Center",
+      "address": "789 Innovation Drive",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60601",
+      "country": "USA",
+      "floor": "All floors",
+      "area": "Laboratory and office areas"
+    },
+    "devices": [
+      {
+        "deviceId": "dev-004",
+        "deviceName": "Environmental Sensor Hub",
+        "quantity": 15,
+        "installationNotes": "Strategic placement for comprehensive monitoring"
+      },
+      {
+        "deviceId": "dev-001",
+        "deviceName": "Smart Thermostat Pro",
+        "quantity": 8,
+        "installationNotes": "Integration with environmental sensors"
+      }
+    ],
+    "assignedTeam": [],
+    "workLog": [
+      {
+        "id": "log-ir-006",
+        "timestamp": "2024-12-18T13:20:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Environmental monitoring system installation request"
+      }
+    ],
+    "requirements": [
+      "Budget approval required",
+      "Coordination with facility management",
+      "Network infrastructure assessment",
+      "Sensor calibration and commissioning",
+      "Staff training on monitoring system"
+    ],
+    "notes": "Pending budget approval for Q1 2025. Priority may increase based on new environmental regulations.",
+    "createdAt": "2024-12-18T13:20:00Z",
+    "updatedAt": "2024-12-18T13:20:00Z"
+  }
+]

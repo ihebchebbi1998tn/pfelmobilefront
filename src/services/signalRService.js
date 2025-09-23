@@ -1,39 +1,25 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-
-let connection = null
-const API_URL = import.meta.env.VITE_APP_API_URL
-
-export const startSignalRConnection = async () => {
-  if (connection) return connection
-
-  const token =
-    (typeof window !== 'undefined' &&
-      (localStorage.getItem('access_token') ||
-        sessionStorage.getItem('access_token'))) || ''
-
-  if (!token) {
-    console.warn('Skipping SignalR start: no access token')
-    return null
+// Mock SignalR service for localStorage-only functionality
+let mockConnection = {
+  state: 'Connected',
+  invoke: async (method, ...args) => {
+    console.log(`Mock SignalR invoke: ${method}`, args)
+    return { success: true }
+  },
+  on: (event, callback) => {
+    console.log(`Mock SignalR listening to: ${event}`)
+  },
+  off: (event, callback) => {
+    console.log(`Mock SignalR stopped listening to: ${event}`)
+  },
+  stop: async () => {
+    console.log('Mock SignalR connection stopped')
+    return { success: true }
   }
-
-  connection = new HubConnectionBuilder()
-    .withUrl(`${API_URL}/chathub`, {
-      withCredentials: true,
-      accessTokenFactory: () => token,
-    })
-    .withAutomaticReconnect()
-    .configureLogging(LogLevel.Information)
-    .build()
-
-  try {
-    await connection.start()
-    console.log('✅ SignalR connected')
-  } catch (err) {
-    console.error('❌ SignalR connection failed:', err)
-    connection = null
-  }
-
-  return connection
 }
 
-export const getSignalRConnection = () => connection
+export const startSignalRConnection = async () => {
+  console.log('✅ Mock SignalR connected')
+  return mockConnection
+}
+
+export const getSignalRConnection = () => mockConnection

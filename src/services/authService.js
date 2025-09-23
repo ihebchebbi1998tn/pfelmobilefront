@@ -1,81 +1,62 @@
-import axiosInstance from '../utils/axiosInstance'
+import { getMockData } from '../utils/mockData'
 
 const authService = {
-  login: async (email, password, rememberMe, deviceType, operatingSystem, browser) => {
-    const res = await axiosInstance.post(`/user/api/auth/login`, {
-      email,
-      password,
-      rememberMe,
-      deviceType,
-      operatingSystem,
-      browser,
-    })
-    const data = res.data
-    try {
-      const accessToken = data?.accessToken || data?.token || data?.jwt || data?.access_token
-      if (accessToken) {
-        // Persist token depending on rememberMe preference
-        if (rememberMe) localStorage.setItem('access_token', accessToken)
-        else sessionStorage.setItem('access_token', accessToken)
+  login: async (email, password, rememberMe) => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    // Check hardcoded admin credentials
+    if (email === 'admin@lmobile.com' && password === 'admin123') {
+      const mockToken = 'mock-jwt-token-' + Date.now()
+      
+      // Persist token depending on rememberMe preference
+      if (rememberMe) {
+        localStorage.setItem('access_token', mockToken)
+      } else {
+        sessionStorage.setItem('access_token', mockToken)
       }
-    } catch {}
-    return data
-  },
-
-  logout: async () => {
-    try {
-      const res = await axiosInstance.post(`/gateway/logout`)
-      return res.data
-    } finally {
-      // Clear any stored access token on logout
-      try {
-        localStorage.removeItem('access_token')
-        sessionStorage.removeItem('access_token')
-      } catch {}
+      
+      return {
+        accessToken: mockToken,
+        success: true
+      }
+    } else {
+      throw new Error('Invalid credentials')
     }
   },
 
-  ConfirmDevice: async (token) => {
-    const params = new URLSearchParams({
-      token: token.toString()
-    })
+  logout: async () => {
+    // Clear any stored access token on logout
+    try {
+      localStorage.removeItem('access_token')
+      sessionStorage.removeItem('access_token')
+    } catch {}
+    return { success: true }
+  },
 
-    const res = await axiosInstance.get(
-      `/user/api/auth/device-confirm?${params.toString()}`
-    )
-    return res.data
+  ConfirmDevice: async (token) => {
+    // Mock device confirmation
+    return { success: true }
   },
 
   revokeDevice: async (deviceId) => {
-    const res = await axiosInstance.put(
-      `/user/api/auth/revoke-device/${deviceId}`,
-      null
-    )
-    return res.data
+    // Mock device revocation
+    return { success: true }
   },
 
   generateResetToken: async (email) => {
-    const res = await axiosInstance.post(
-      `/user/api/auth/generate-reset-token`,
-      { email }
-    )
-    return res.data
+    // Mock reset token generation
+    return { success: true, message: 'Reset token sent to email' }
   },
 
   VerifyEmail: async (email) => {
-    const res = await axiosInstance.post(`/user/api/auth/verify-email`, {
-      email,
-    })
-    return res.data
+    // Mock email verification
+    return { success: true, message: 'Email verified' }
   },
 
   resetPassword: async (email, token, newPassword) => {
-    const res = await axiosInstance.post(`/user/api/auth/reset-password`, {
-      email,
-      token,
-      newPassword,
-    })
-    return res.data
+    // Mock password reset
+    return { success: true, message: 'Password reset successful' }
   },
 }
 

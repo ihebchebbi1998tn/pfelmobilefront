@@ -231,7 +231,7 @@ const Topbar = ({ handleDrawerToggle, toggleLoader, toggleIsCollapsed, isCollaps
       </Modal>
       <Dialog open={notifDialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{dictionary?.NotificationDetail || 'Notification Detail'}</DialogTitle>
-        <DialogContent>
+        <DialogContent aria-describedby="notification-details">
           <Typography variant="body1" gutterBottom>
             {selectedNotif?.content}
           </Typography>

@@ -32,7 +32,7 @@ const CustomerDevices = () => {
   const { user } = useAuth()
   const { toggleLoader, handleRightDrawerOpen } = useOutletContext()
   const { dictionary } = useLanguage()
-  const { fetchOrganisationData, uiPage } = useOrganisation()
+  const { fetchOrganisationData = () => {}, uiPage = null } = useOrganisation() || {}
   const [typeSnack, setTypeSnack] = useState(null)
   const [messageSnack, setMessageSnack] = useState(null)
   const [openSnackBar, setOpenSnackBar] = useState(false)
@@ -49,7 +49,7 @@ const CustomerDevices = () => {
     uiPage!=null ? uiPage?.itemsPerPage : 2
   )
   const [layout, setLayout] = useState(
-    uiPage!=null ? uiPage?.layout : 'table'
+    uiPage!=null ? uiPage?.layout : 'Table'
   )
   const [imagePostion, setImagePostion] = useState(
     uiPage!=null ? uiPage?.imagePosition : "top"
@@ -59,7 +59,7 @@ const CustomerDevices = () => {
   )
   const [indexOfLastItem, setIndexOfLastItem] = useState(currentPage * itemsPerPage)
   const [indexOfFirstItem, setIndexOfFirstItem] = useState(indexOfLastItem - itemsPerPage)
-  const [currentDevices, setCurrentDevices] = useState(devices.slice(indexOfFirstItem, indexOfLastItem))
+  const [currentDevices, setCurrentDevices] = useState([])
   const manageOrganisations =
     user?.permissions?.some(
       (perm) =>
@@ -93,13 +93,13 @@ const CustomerDevices = () => {
   return !uiPage.fieldsToNotDisplay.includes(field)
 }
    const [fields, setFields] = useState([
-    { label: dictionary.Image, value: 'device.imageUrl', type: 'image', unique: false, visible: isFieldVisible("device.imageUrl"), isItSatus: false },
-    { label: dictionary.Name, value: 'device.name', type: 'string', unique: true, visible: isFieldVisible("device.name"), isItSatus: false },
-    { label: dictionary.Description, value: 'device.description', type: 'string', unique: false, visible: isFieldVisible("device.description"), isItSatus: false },
-    { label: dictionary.SerialNumber, value: 'serialNumber', type: 'string', unique: false, visible: isFieldVisible("serialNumber"), isItSatus: false },
-    { label: dictionary.UserName, value: 'device.userName', type: 'string', unique: false, visible: isFieldVisible("device.userName"), isItSatus: false },
-    { label: dictionary.OrganisationName, value: 'device.organizationName', type: 'string', unique: false, visible: isFieldVisible("device.organizationName"), isItSatus: false },
-  ])
+     { label: dictionary.Image, value: 'imageUrl', type: 'image', unique: false, visible: isFieldVisible("imageUrl"), isItSatus: false },
+     { label: dictionary.Name, value: 'deviceName', type: 'string', unique: true, visible: isFieldVisible("deviceName"), isItSatus: false },
+     { label: dictionary.Model, value: 'deviceModel', type: 'string', unique: false, visible: isFieldVisible("deviceModel"), isItSatus: false },
+     { label: dictionary.SerialNumber, value: 'serialNumber', type: 'string', unique: false, visible: isFieldVisible("serialNumber"), isItSatus: false },
+     { label: dictionary.Status, value: 'status', type: 'string', unique: false, visible: isFieldVisible("status"), isItSatus: true },
+     { label: dictionary.Location, value: 'location', type: 'string', unique: false, visible: isFieldVisible("location"), isItSatus: false },
+   ])
   
   const handleDelete = (row) => {
     if (row.id) {
@@ -155,32 +155,58 @@ const CustomerDevices = () => {
     setCurrentPage(currentPage - 1)
     setIndexOfLastItem((currentPage - 1) * itemsPerPage)
     setIndexOfFirstItem(((currentPage - 1) * itemsPerPage) - itemsPerPage)
-    setCurrentDevices(devices.slice((((currentPage - 1) * itemsPerPage) - itemsPerPage), ((currentPage - 1) * itemsPerPage)))
+    setCurrentDevices((devices || []).slice((((currentPage - 1) * itemsPerPage) - itemsPerPage), ((currentPage - 1) * itemsPerPage)))
   }
 
   const handleNext =  () => {
      setCurrentPage(currentPage + 1)
     setIndexOfLastItem((currentPage + 1) * itemsPerPage)
     setIndexOfFirstItem(((currentPage + 1) * itemsPerPage) - itemsPerPage)
-    setCurrentDevices(devices.slice((((currentPage + 1) * itemsPerPage) - itemsPerPage), ((currentPage + 1) * itemsPerPage)))
+    setCurrentDevices((devices || []).slice((((currentPage + 1) * itemsPerPage) - itemsPerPage), ((currentPage + 1) * itemsPerPage)))
   }
 
   const handleOpenDetails = (device) => setOpenDevice(device)
   const handleCloseDetails = () => setOpenDevice(null)
 
    const fetchDevicesData = async (itemsNumber) => {
+    console.log('Fetching customer devices for organization:', user.organization.id)
     try {
       const data = await customerDevicesService.getAllCustomerDevices(user.organization.id)
-      if (data) {    
-      setTotalPages(Math.ceil(data.length / itemsNumber))
-      setDevices(data)
-      setIndexOfLastItem(currentPage * itemsNumber)
-      setIndexOfFirstItem((currentPage * itemsNumber) - itemsNumber)
-      setCurrentDevices(data.slice(((currentPage * itemsNumber) - itemsNumber), (currentPage * itemsNumber)))
-      if(!hasAnyDevice) setHasAnyDevice(true)
+      console.log('Customer devices response:', data) // Debug log
+      
+      let devicesArray = []
+      if (data && data.items) {
+        devicesArray = data.items
+        console.log('Found devices in data.items:', devicesArray.length)
+      } else if (Array.isArray(data)) {
+        devicesArray = data
+        console.log('Found devices in data array:', devicesArray.length)
+      }
+      
+      console.log('Final devices array:', devicesArray)
+      
+      // Always set hasAnyDevice to true if we have data structure, even if empty
+      setHasAnyDevice(true)
+      
+      if (devicesArray.length > 0) {    
+        setTotalPages(Math.ceil(devicesArray.length / itemsNumber))
+        setDevices(devicesArray)
+        setIndexOfLastItem(currentPage * itemsNumber)
+        setIndexOfFirstItem((currentPage * itemsNumber) - itemsNumber)
+        const currentPageDevices = devicesArray.slice(((currentPage * itemsNumber) - itemsNumber), (currentPage * itemsNumber))
+        console.log('Setting current devices for page:', currentPageDevices)
+        setCurrentDevices(currentPageDevices)
+      } else {
+        console.log('No devices found, setting empty arrays')
+        setDevices([])
+        setCurrentDevices([])
+        setTotalPages(0)
       }
     } catch (e) {
       console.log(e)
+      setHasAnyDevice(true) // Show interface even on error
+      setDevices([])
+      setCurrentDevices([])
       if (e?.response?.data?.message) {
         const message = e.response.data.message
        
@@ -212,12 +238,12 @@ const CustomerDevices = () => {
   const fetchAndInit = async () => {
     if (uiPage != null) {
       setFields([
-        { label: dictionary.Image, value: 'device.imageUrl', type: 'image', unique: false, visible: isFieldVisible("device.imageUrl"), isItSatus: false },
-    { label: dictionary.Name, value: 'device.name', type: 'string', unique: true, visible: isFieldVisible("device.name"), isItSatus: false },
-    { label: dictionary.Description, value: 'device.description', type: 'string', unique: false, visible: isFieldVisible("device.description"), isItSatus: false },
-    { label: dictionary.SerialNumber, value: 'serialNumber', type: 'string', unique: false, visible: isFieldVisible("serialNumber"), isItSatus: false },
-    { label: dictionary.UserName, value: 'userName', type: 'string', unique: false, visible: isFieldVisible("device.userName"), isItSatus: false },
-    { label: dictionary.OrganisationName, value: 'device.organizationName', type: 'string', unique: false, visible: isFieldVisible("device.organizationName"), isItSatus: false },
+        { label: dictionary.Image, value: 'imageUrl', type: 'image', unique: false, visible: isFieldVisible("imageUrl"), isItSatus: false },
+        { label: dictionary.Name, value: 'deviceName', type: 'string', unique: true, visible: isFieldVisible("deviceName"), isItSatus: false },
+        { label: dictionary.Model, value: 'deviceModel', type: 'string', unique: false, visible: isFieldVisible("deviceModel"), isItSatus: false },
+        { label: dictionary.SerialNumber, value: 'serialNumber', type: 'string', unique: false, visible: isFieldVisible("serialNumber"), isItSatus: false },
+        { label: dictionary.Status, value: 'status', type: 'string', unique: false, visible: isFieldVisible("status"), isItSatus: true },
+        { label: dictionary.Location, value: 'location', type: 'string', unique: false, visible: isFieldVisible("location"), isItSatus: false },
       ])
 
       setLayout(uiPage.layout)
@@ -234,7 +260,8 @@ const CustomerDevices = () => {
 
 
     useEffect(() => {
-  if (devices.length > 0 && fields.length > 0) {
+  // Always set commonProps, even when no devices
+  if (fields.length > 0) {
     setCommonProps({
       data: currentDevices,
       fields,
@@ -249,7 +276,7 @@ const CustomerDevices = () => {
       handleshowObject: handleOpenDetails,
     })
   }
-}, [currentDevices, fields, backgroundColors, imagePostion, currentPage, totalPages])
+}, [currentDevices, devices, fields, backgroundColors, imagePostion, currentPage, totalPages])
 
 
   return (
@@ -319,12 +346,16 @@ const CustomerDevices = () => {
                       {layout === 'Grid' && <GridContainer {...commonProps} />}
                       {layout === 'Column' && <ColumnContainer {...commonProps} />}
                       {layout === 'Tab' && <TabContainer {...commonProps} />}
+                      
                     </motion.div>
                   </AnimatePresence>
                 ) : (
-                    <Typography variant="h6" textAlign="center" color="text.secondary">
-                    🔍 {dictionary.NoDataFound}
-                    </Typography>
+                    <Box>
+                      <Typography variant="h6" textAlign="center" color="text.secondary">
+                        🔍 {dictionary.NoDataFound}
+                      </Typography>
+                      
+                    </Box>
                 )}
                 
             </motion.div>

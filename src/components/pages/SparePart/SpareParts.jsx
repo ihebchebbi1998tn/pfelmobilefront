@@ -211,15 +211,29 @@ const SpareParts = () => {
         user.organization.id,
         searchTerm
       )
+      
+      // Always show interface
+      setHasAnyDevice(true)
+      
       if (data) {
         if (data.totalCount > 0) {
-            if(!hasAnyDevice) setHasAnyDevice(true)
           setTotalPages(Math.ceil(data.totalCount / itemsNumber))
+        } else {
+          setTotalPages(0)
         }
-        setSpareParts(data.items)
-        setUniqueCompanyNames(data.companyNames)
+        setSpareParts(data.items || [])
+        setUniqueCompanyNames(data.companyNames || [])
+      } else {
+        setSpareParts([])
+        setUniqueCompanyNames([])
+        setTotalPages(0)
       }
     } catch (e) {
+      setHasAnyDevice(true) // Show interface even on error
+      setSpareParts([])
+      setUniqueCompanyNames([])
+      setTotalPages(0)
+      
       if (e?.response?.data?.message) {
         const message = e.response.data.message
        

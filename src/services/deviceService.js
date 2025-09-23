@@ -1,43 +1,54 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const deviceService = {
     
   getAllDevices: async (page, pageSize, companyId, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      companyId: companyId.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    const result = localStorageService.getAll('mockDevices', {
+      page,
+      pageSize,
+      companyId,
+      searchTerm
     })
 
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
-    }
+    // Map device data to match expected format
+    const mappedItems = result.items.map(item => ({
+      ...item,
+      title: item.name || item.title,
+      description: item.description,
+      price: item.price || Math.floor(Math.random() * 500) + 100,
+      tva: item.tva || 20,
+      reference: item.reference || item.serialNumber || `REF-${item.id}`,
+      organizationName: item.organizationName || 'L-Mobile',
+      imageUrl: item.imageUrl || null
+    }))
 
-    const res = await axiosInstance.get(
-      `/service/api/Devices?${params.toString()}`
-    )
-    return res.data
+    return {
+      ...result,
+      items: mappedItems,
+      companyNames: ['L-Mobile']
+    }
   },
 
   addDevice: async (device) => {
-    const res = await axiosInstance.post(`/service/api/Devices`, device)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockDevices', device)
   },
 
   addListDevices: async (data) => {
-    const res = await axiosInstance.post(`/service/api/Devices/add_list_of_devices`, data)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.createBulk('mockDevices', data)
   },
 
-
   updateDevice: async (device) => {
-    const res = await axiosInstance.post(`/service/api/Devices/update`, device)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockDevices', device.id, device)
   },
 
   DeleteDevice: async (id) => {
-    const res = await axiosInstance.delete(`/service/api/Devices/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockDevices', id)
   },
 }
 

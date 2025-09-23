@@ -1,0 +1,221 @@
+[
+  {
+    "id": "inv-001",
+    "invoiceNumber": "INV-2024-001",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "orderId": "ord-001",
+    "serviceRequestId": null,
+    "installationRequestId": null,
+    "type": "Order",
+    "status": "Paid",
+    "issueDate": "2024-01-20T09:00:00Z",
+    "dueDate": "2024-02-19T23:59:59Z",
+    "paidDate": "2024-01-25T14:30:00Z",
+    "subtotal": 2599.98,
+    "taxRate": 0.08,
+    "taxAmount": 208.00,
+    "discount": 100.00,
+    "discountReason": "First-time customer discount",
+    "totalAmount": 2707.98,
+    "currency": "USD",
+    "paymentMethod": "Credit Card",
+    "paymentReference": "CC-****-1234",
+    "companyId": "1",
+    "organizationId": "1",
+    "billingAddress": {
+      "name": "Admin User",
+      "company": "L-Mobile",
+      "street": "123 Business Ave",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    },
+    "items": [
+      {
+        "id": "inv-item-001",
+        "description": "Smart Thermostat Pro (ST-4000)",
+        "quantity": 2,
+        "unitPrice": 899.99,
+        "totalPrice": 1799.98,
+        "category": "Hardware"
+      },
+      {
+        "id": "inv-item-002",
+        "description": "Professional Installation Service",
+        "quantity": 1,
+        "unitPrice": 800.00,
+        "totalPrice": 800.00,
+        "category": "Service"
+      }
+    ],
+    "notes": "Thank you for your business. Warranty information has been emailed separately.",
+    "terms": "Net 30 days. Late payments subject to 1.5% monthly service charge.",
+    "createdAt": "2024-01-20T09:00:00Z",
+    "updatedAt": "2024-01-25T14:30:00Z"
+  },
+  {
+    "id": "inv-002",
+    "invoiceNumber": "INV-2024-002",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "orderId": null,
+    "serviceRequestId": "sr-002",
+    "installationRequestId": null,
+    "type": "Service",
+    "status": "Paid",
+    "issueDate": "2024-12-16T15:00:00Z",
+    "dueDate": "2025-01-15T23:59:59Z",
+    "paidDate": "2024-12-18T10:20:00Z",
+    "subtotal": 85.00,
+    "taxRate": 0.08,
+    "taxAmount": 6.80,
+    "discount": 0.00,
+    "discountReason": null,
+    "totalAmount": 91.80,
+    "currency": "USD",
+    "paymentMethod": "Bank Transfer",
+    "paymentReference": "BT-2024-1218-001",
+    "companyId": "1",
+    "organizationId": "1",
+    "billingAddress": {
+      "name": "Admin User",
+      "company": "L-Mobile",
+      "street": "123 Business Ave",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    },
+    "items": [
+      {
+        "id": "inv-item-003",
+        "description": "Security Camera Power Supply Replacement",
+        "quantity": 1,
+        "unitPrice": 35.00,
+        "totalPrice": 35.00,
+        "category": "Parts"
+      },
+      {
+        "id": "inv-item-004",
+        "description": "On-site Service Call - Diagnostics and Repair",
+        "quantity": 1,
+        "unitPrice": 50.00,
+        "totalPrice": 50.00,
+        "category": "Labor"
+      }
+    ],
+    "notes": "Service completed successfully. Camera restored to full functionality.",
+    "terms": "Net 30 days. Service warranty: 90 days on labor, 1 year on parts.",
+    "createdAt": "2024-12-16T15:00:00Z",
+    "updatedAt": "2024-12-18T10:20:00Z"
+  },
+  {
+    "id": "inv-003",
+    "invoiceNumber": "INV-2024-003",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "orderId": null,
+    "serviceRequestId": null,
+    "installationRequestId": "ir-001",
+    "type": "Installation",
+    "status": "Pending",
+    "issueDate": "2024-12-20T11:00:00Z",
+    "dueDate": "2025-01-19T23:59:59Z",
+    "paidDate": null,
+    "subtotal": 45000.00,
+    "taxRate": 0.08,
+    "taxAmount": 3600.00,
+    "discount": 2250.00,
+    "discountReason": "Volume installation discount (5%)",
+    "totalAmount": 46350.00,
+    "currency": "USD",
+    "paymentMethod": null,
+    "paymentReference": null,
+    "companyId": "1",
+    "organizationId": "1",
+    "billingAddress": {
+      "name": "Admin User",
+      "company": "L-Mobile",
+      "street": "123 Enterprise Blvd, Suite 500",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    },
+    "items": [
+      {
+        "id": "inv-item-005",
+        "description": "Smart Thermostat Pro (ST-4000) - Qty 6",
+        "quantity": 6,
+        "unitPrice": 899.99,
+        "totalPrice": 5399.94,
+        "category": "Hardware"
+      },
+      {
+        "id": "inv-item-006",
+        "description": "Security Camera 360 (SC-3600) - Qty 12",
+        "quantity": 12,
+        "unitPrice": 649.99,
+        "totalPrice": 7799.88,
+        "category": "Hardware"
+      },
+      {
+        "id": "inv-item-007",
+        "description": "Smart Lock Elite (SL-2000) - Qty 8",
+        "quantity": 8,
+        "unitPrice": 449.99,
+        "totalPrice": 3599.92,
+        "category": "Hardware"
+      },
+      {
+        "id": "inv-item-008",
+        "description": "Environmental Sensor Hub (ESH-1500) - Qty 10",
+        "quantity": 10,
+        "unitPrice": 299.99,
+        "totalPrice": 2999.90,
+        "category": "Hardware"
+      },
+      {
+        "id": "inv-item-009",
+        "description": "Complete System Installation and Configuration",
+        "quantity": 1,
+        "unitPrice": 15000.00,
+        "totalPrice": 15000.00,
+        "category": "Installation"
+      },
+      {
+        "id": "inv-item-010",
+        "description": "Network Infrastructure Setup",
+        "quantity": 1,
+        "unitPrice": 5000.00,
+        "totalPrice": 5000.00,
+        "category": "Service"
+      },
+      {
+        "id": "inv-item-011",
+        "description": "System Integration and Testing",
+        "quantity": 1,
+        "unitPrice": 3000.00,
+        "totalPrice": 3000.00,
+        "category": "Service"
+      },
+      {
+        "id": "inv-item-012",
+        "description": "Staff Training and Documentation",
+        "quantity": 1,
+        "unitPrice": 2200.36,
+        "totalPrice": 2200.36,
+        "category": "Training"
+      }
+    ],
+    "notes": "Payment due upon completion of installation. Project timeline: 4 weeks from approval.",
+    "terms": "50% deposit required to begin work. Balance due upon completion and acceptance testing.",
+    "createdAt": "2024-12-20T11:00:00Z",
+    "updatedAt": "2024-12-20T11:00:00Z"
+  }
+]

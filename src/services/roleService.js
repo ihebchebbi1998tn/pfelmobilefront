@@ -1,43 +1,47 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const roleService = {
   addRole: async (role) => {
-    const res = await axiosInstance.post(`/user/api/role`, role)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockRoles', role)
   },
 
   GetRoleById: async (id) => {
-    const res = await axiosInstance.get(`/user/api/role/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.getById('mockRoles', id)
   },
 
   getAllRoles: async (pageNumber, pageSize, searchTerm) => {
-    const params = new URLSearchParams({
-      pageNumber: pageNumber.toString(),
-      pageSize: pageSize.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    const result = localStorageService.getAll('mockRoles', {
+      page: pageNumber,
+      pageSize,
+      searchTerm
     })
 
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
+    return {
+      items: result.items || [],
+      totalCount: result.totalCount || 0,
+      organizationNames: ['L-Mobile']
     }
-
-    const res = await axiosInstance.get(`/user/api/role?${params.toString()}`)
-    return res.data
   },
 
   GetRoleByUserId: async (userId) => {
-    const res = await axiosInstance.get(`/user/api/role/ByUserId/${userId}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    const users = localStorageService.getAll('mockUsers', { page: 1, pageSize: 1000 })
+    const user = users.items.find(u => u.id === userId)
+    return user ? user.roles || [] : []
   },
 
   updateRole: async (id, roleData) => {
-    const res = await axiosInstance.put(`/user/api/role/${id}`, roleData)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockRoles', id, roleData)
   },
 
   DeleteRole: async (id) => {
-    const res = await axiosInstance.delete(`/user/api/role/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockRoles', id)
   },
 }
 

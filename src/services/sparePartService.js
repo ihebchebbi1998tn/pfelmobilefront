@@ -1,42 +1,56 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const sparePartService = {
     
   getAllSpareParts: async (page, pageSize, companyId, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      companyId: companyId.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    const result = localStorageService.getAll('mockSpareParts', {
+      page,
+      pageSize,
+      companyId,
+      searchTerm
     })
 
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
-    }
+    console.log('Spare parts service result:', result)
 
-    const res = await axiosInstance.get(
-      `/service/api/SparePart?${params.toString()}`
-    )
-    return res.data
+    // Map spare parts data to match expected format
+    const mappedItems = result.items.map(item => ({
+      ...item,
+      title: item.name || item.title,
+      description: item.description,
+      price: item.sellingPrice || item.unitCost || 0,
+      tva: 10, // Default tax rate
+      quantity: item.stockQuantity || 0,
+      organizationName: 'L-Mobile',
+      imageUrl: null
+    }))
+
+    return {
+      ...result,
+      items: mappedItems,
+      companyNames: ['L-Mobile']
+    }
   },
 
   addSparePart: async (sparePart) => {
-    const res = await axiosInstance.post(`/service/api/SparePart`, sparePart)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockSpareParts', sparePart)
   },
 
   addListOfSparePart: async (data) => {
-    const res = await axiosInstance.post(`/service/api/SparePart/add_list_of_spareParts`, data)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.createBulk('mockSpareParts', data)
   },
 
   updateSparePart: async (sparePart) => {
-    const res = await axiosInstance.post(`/service/api/SparePart/update`, sparePart)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockSpareParts', sparePart.id, sparePart)
   },
 
   DeleteSparePart: async (id) => {
-    const res = await axiosInstance.delete(`/service/api/SparePart/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockSpareParts', id)
   },
 }
 

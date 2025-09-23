@@ -1,0 +1,168 @@
+[
+  {
+    "id": "sr-001",
+    "ticketNumber": "SR-2024-001",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Thermostat Not Responding",
+    "description": "Smart thermostat in conference room has stopped responding to manual adjustments and mobile app commands. Temperature readings appear inaccurate.",
+    "category": "HVAC",
+    "priority": "High",
+    "status": "In Progress",
+    "deviceId": "dev-001",
+    "deviceName": "Smart Thermostat Pro",
+    "assignedTechnician": "John Smith",
+    "technicianId": "tech-001",
+    "requestDate": "2024-12-18T09:30:00Z",
+    "scheduledDate": "2024-12-22T14:00:00Z",
+    "estimatedCost": 150.00,
+    "actualCost": null,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": "Building A - Floor 2 - Conference Room",
+    "images": [
+      {
+        "id": "img-001",
+        "filename": "thermostat-display.jpg",
+        "description": "Display showing error code",
+        "uploadDate": "2024-12-18T09:32:00Z"
+      }
+    ],
+    "workLog": [
+      {
+        "id": "log-001",
+        "timestamp": "2024-12-18T09:30:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Initial service request submitted"
+      },
+      {
+        "id": "log-002",
+        "timestamp": "2024-12-18T10:15:00Z",
+        "author": "John Smith",
+        "action": "Assigned",
+        "notes": "Technician assigned for troubleshooting"
+      },
+      {
+        "id": "log-003",
+        "timestamp": "2024-12-20T11:20:00Z",
+        "author": "John Smith",
+        "action": "In Progress",
+        "notes": "Initial diagnostics completed. Firmware update required."
+      }
+    ],
+    "resolution": null,
+    "completedDate": null,
+    "customerSatisfaction": null,
+    "createdAt": "2024-12-18T09:30:00Z",
+    "updatedAt": "2024-12-20T11:20:00Z"
+  },
+  {
+    "id": "sr-002",
+    "ticketNumber": "SR-2024-002",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Security Camera Offline",
+    "description": "Main entrance security camera went offline after power outage. Camera is not visible in monitoring system.",
+    "category": "Security",
+    "priority": "High",
+    "status": "Completed",
+    "deviceId": "dev-002",
+    "deviceName": "Security Camera 360",
+    "assignedTechnician": "Sarah Johnson",
+    "technicianId": "tech-002",
+    "requestDate": "2024-12-15T08:45:00Z",
+    "scheduledDate": "2024-12-16T10:30:00Z",
+    "estimatedCost": 100.00,
+    "actualCost": 85.00,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": "Main Entrance",
+    "images": [],
+    "workLog": [
+      {
+        "id": "log-004",
+        "timestamp": "2024-12-15T08:45:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Camera offline after power outage"
+      },
+      {
+        "id": "log-005",
+        "timestamp": "2024-12-15T09:30:00Z",
+        "author": "Sarah Johnson",
+        "action": "Assigned",
+        "notes": "Technician assigned for camera restoration"
+      },
+      {
+        "id": "log-006",
+        "timestamp": "2024-12-16T11:45:00Z",
+        "author": "Sarah Johnson",
+        "action": "Completed",
+        "notes": "Power supply replaced. Camera fully operational."
+      }
+    ],
+    "resolution": "Replaced faulty power supply unit. Camera restored to full functionality with all features working properly.",
+    "completedDate": "2024-12-16T11:45:00Z",
+    "customerSatisfaction": 5,
+    "createdAt": "2024-12-15T08:45:00Z",
+    "updatedAt": "2024-12-16T11:45:00Z"
+  },
+  {
+    "id": "sr-003",
+    "ticketNumber": "SR-2024-003",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "title": "Smart Lock Malfunction",
+    "description": "Office door smart lock is intermittently failing to recognize fingerprints and occasionally not responding to PIN entries.",
+    "category": "Access Control",
+    "priority": "Medium",
+    "status": "Scheduled",
+    "deviceId": "dev-003",
+    "deviceName": "Smart Lock Elite",
+    "assignedTechnician": "Mike Wilson",
+    "technicianId": "tech-003",
+    "requestDate": "2024-12-19T14:20:00Z",
+    "scheduledDate": "2024-12-23T09:00:00Z",
+    "estimatedCost": 200.00,
+    "actualCost": null,
+    "currency": "USD",
+    "companyId": "1",
+    "organizationId": "1",
+    "location": "Office Suite 200",
+    "images": [
+      {
+        "id": "img-002",
+        "filename": "lock-error.jpg",
+        "description": "Lock display showing error message",
+        "uploadDate": "2024-12-19T14:22:00Z"
+      }
+    ],
+    "workLog": [
+      {
+        "id": "log-007",
+        "timestamp": "2024-12-19T14:20:00Z",
+        "author": "Admin User",
+        "action": "Request Created",
+        "notes": "Lock fingerprint reader and PIN pad issues reported"
+      },
+      {
+        "id": "log-008",
+        "timestamp": "2024-12-19T15:00:00Z",
+        "author": "Mike Wilson",
+        "action": "Assigned",
+        "notes": "Technician assigned for lock diagnostics and repair"
+      }
+    ],
+    "resolution": null,
+    "completedDate": null,
+    "customerSatisfaction": null,
+    "createdAt": "2024-12-19T14:20:00Z",
+    "updatedAt": "2024-12-19T15:00:00Z"
+  }
+]

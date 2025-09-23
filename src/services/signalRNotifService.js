@@ -1,39 +1,25 @@
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-
-let connection = null
-const API_URL = import.meta.env.VITE_APP_API_URL
-
-export const startSignalRConnection = async () => {
-  if (connection) return connection
-
-  const token =
-    (typeof window !== 'undefined' &&
-      (localStorage.getItem('access_token') ||
-        sessionStorage.getItem('access_token'))) || ''
-
-  if (!token) {
-    console.warn('Skipping SignalR start: no access token')
-    return null
+// Mock SignalR notification service for localStorage-only functionality
+let mockNotifConnection = {
+  state: 'Connected',
+  invoke: async (method, ...args) => {
+    console.log(`Mock SignalR Notif invoke: ${method}`, args)
+    return { success: true }
+  },
+  on: (event, callback) => {
+    console.log(`Mock SignalR Notif listening to: ${event}`)
+  },
+  off: (event, callback) => {
+    console.log(`Mock SignalR Notif stopped listening to: ${event}`)
+  },
+  stop: async () => {
+    console.log('Mock SignalR Notif connection stopped')
+    return { success: true }
   }
-
-  connection = new HubConnectionBuilder()
-    .withUrl(`${API_URL}/notificationhub`, {
-      withCredentials: true,
-      accessTokenFactory: () => token,
-    })
-    .withAutomaticReconnect()
-    .configureLogging(LogLevel.Information)
-    .build()
-
-  try {
-    await connection.start()
-    console.log('✅ SignalR Notif connected')
-  } catch (err) {
-    console.error('❌ SignalR Notif connection failed:', err)
-    connection = null
-  }
-
-  return connection
 }
 
-export const getSignalRConnection = () => connection
+export const startSignalRConnection = async () => {
+  console.log('✅ Mock SignalR Notif connected')
+  return mockNotifConnection
+}
+
+export const getSignalRConnection = () => mockNotifConnection

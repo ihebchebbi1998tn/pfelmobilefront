@@ -72,10 +72,8 @@ const handleSubmitPrev =  () => {
       try {
         setLoading(true)
         setLoginError(null)
-        
-        const { deviceType, operatingSystem, browser } = await getDeviceInfo()
 
-        const data = await authService.login(email, password, remember, deviceType, operatingSystem, browser)
+        const data = await authService.login(email, password, remember)
         if (data) {
           setLoading(false)
           await fetchUser()
@@ -84,34 +82,11 @@ const handleSubmitPrev =  () => {
         }
       } catch (e) {
         setLoading(false)
-        if (e?.response?.data?.message) {
-          const message = e.response.data.message
-          if (message === 'User not found') {
-            setLoginError(dictionary.IncorrectCredentials)
-          } else if (message === 'sorry you are banned') {
-            setLoginError(dictionary.SorryYouAreBanned)
-          } else if (message === 'Account deleted') {
-            setLoginError(dictionary.AccountDeleted)
-          } else if (message === 'Unconfirmed email') {
-            setLoginError(dictionary.UnconfirmedEmail)
-          } else if (message === 'Organization deleted') {
-            setLoginError(dictionary.OrganizationDeleted)
-          } else if (message === 'User has no assigned roles') {
-            setLoginError(dictionary.RoleDeleted)
-          }else if (message === 'Incorrect password') {
-            setLoginError(dictionary.IncorrectCredentials)
-          } else if (
-            message ===
-            'Your account is locked due to too many failed login attempts'
-          ) {
-            setLoginError(dictionary.TooManyAttempts)
-          }else if (message === 'New device detected. Please confirm via your email.') {
-            setLoginError(dictionary.NewUserDeviceDetected)
-          } else {
-            setLoginError(dictionary.LoginFailed)
-          }
+        // Handle simple Error objects from mock auth service
+        if (e.message === 'Invalid credentials') {
+          setLoginError(dictionary.IncorrectCredentials || 'Invalid email or password')
         } else {
-          setLoginError(dictionary.LoginFailed)
+          setLoginError(dictionary.LoginFailed || 'Login failed')
         }
       }
     
@@ -198,6 +173,34 @@ const handleSubmitPrev =  () => {
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
               {dictionary?.LoginToContinue || 'Please log in to continue'}
             </Typography>
+
+            {/* Admin Login Credentials */}
+            <Box
+              sx={{
+                backgroundColor: isDark ? 'rgba(138, 98, 239, 0.1)' : 'rgba(25, 118, 210, 0.1)',
+                border: `1px solid ${isDark ? 'rgba(138, 98, 239, 0.3)' : 'rgba(25, 118, 210, 0.3)'}`,
+                borderRadius: 2,
+                p: 2,
+                mb: 3,
+              }}
+            >
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 'bold',
+                  color: isDark ? '#8a62ef' : 'primary.main',
+                  mb: 1 
+                }}
+              >
+                Demo Admin Credentials:
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Email: admin@lmobile.com
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Password: admin123
+              </Typography>
+            </Box>
 
             <TextField
               label={dictionary?.email || 'Email'}

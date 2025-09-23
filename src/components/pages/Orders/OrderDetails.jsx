@@ -64,7 +64,7 @@ const OrderDetails = ({ open, onClose, order }) => {
    <Box>
      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle></DialogTitle>
-      <DialogContent>
+      <DialogContent aria-describedby="order-details-content">
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={3}>
           <Box flex={1}>
             {images.length > 0 && (

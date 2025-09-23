@@ -7,7 +7,7 @@ import {
   useCallback,
 } from 'react'
 import { startSignalRConnection } from '../services/signalRNotifService'
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from '../services/localStorageService'
 import PropTypes from 'prop-types'
 import { useLanguage } from './LanguageContext'
 import { useAuth } from './AuthContext'
@@ -23,49 +23,50 @@ export const NotificationProvider = ({ children }) => {
   const fetchNotifications = useCallback(async () => {
     try {
       setNotificationError(null)
-      const response = await axiosInstance.get(
-        `/notification/api/notification/notifications`
-      )
-      setNotifications(response.data)
+      // Mock notifications from localStorage
+      const mockNotifications = localStorageService.getAll('mockNotifications', { page: 1, pageSize: 100 })
+      setNotifications(mockNotifications.items || [])
     } catch (error) {
-      setNotificationError(error || dictionary.FailedToGetNotifications)
+      setNotificationError('Failed to get notifications')
     }
-  }, [dictionary])
+  }, [])
 
   const deleteNotification = useCallback(
     async (id) => {
       try {
         setNotificationError(null)
-        await axiosInstance.delete(`/notification/api/notification/${id}`)
+        localStorageService.delete('mockNotifications', id)
         setNotifications((prev) => prev.filter((s) => s.id !== id))
       } catch (error) {
-        setNotificationError(error || dictionary.FailedToDeleteNotifications)
+        setNotificationError('Failed to delete notification')
       }
     },
-    [dictionary]
+    []
   )
 
   const markNotificationRead = useCallback(
     async (id) => {
       try {
         setNotificationError(null)
-        await axiosInstance.put(`/notification/api/notification/${id}`, null)
+        localStorageService.update('mockNotifications', id, { isRead: true })
         fetchNotifications()
       } catch (error) {
-        setNotificationError(error || dictionary.OperationFailed)
+        setNotificationError('Operation failed')
       }
     },
-    [dictionary]
+    [fetchNotifications]
   )
+  
   useEffect(() => {
     if (loading || !isAuthenticated) return
 
     const connect = async () => {
       const conn = await startSignalRConnection()
       if (!conn) {
-        setNotificationError(dictionary.FailedToConnectToServer)
+        setNotificationError('Failed to connect to notification service')
         return
       }
+      
       conn.on('ReceiveNotification', (notif) => {
         setNotifications((prev) => {
           const alreadyExists = prev.some((n) => n.id === notif.id)
@@ -74,9 +75,10 @@ export const NotificationProvider = ({ children }) => {
         })
       })
     }
+    
     connect()
     fetchNotifications()
-  }, [isAuthenticated, loading, fetchNotifications, dictionary])
+  }, [isAuthenticated, loading, fetchNotifications])
 
   const contextValue = useMemo(
     () => ({

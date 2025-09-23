@@ -19,21 +19,37 @@ export const OrganisationProvider = ({ children }) => {
     try {
       const data = await OrganisationService.GetOrganizationById()
       if (data) {
-        setOrganisation(data.organization)
-        const pages = data.organization?.uiPages || []
-        const page = pages.find((p) => p.pageReference === reference)
+        // Mock organization structure for offline mode
+        const mockOrganisation = {
+          id: '1',
+          name: 'L-Mobile',
+          description: 'Main organization',
+          isActive: true,
+          uiPages: [
+            {
+              id: '1',
+              pageReference: reference || 'default',
+              title: 'Default Page',
+              content: 'Default content'
+            }
+          ]
+        }
+        
+        setOrganisation(mockOrganisation)
+        const pages = Array.isArray(mockOrganisation.uiPages) ? mockOrganisation.uiPages : []
+        const page = pages.length > 0 ? (pages.find((p) => p.pageReference === reference) || pages[0]) : null
         if (page) {
-          setPageReference(reference)
+          setPageReference(reference || 'default')
           setUiPage(page)
         }
       }
     } catch (e) {
-      console.error(e?.response?.data?.message)
+      console.error('Failed to fetch organization data')
     }
   }, [])
 
   const handleChangePageReference = useCallback((reference) => {
-    if (!organisation || !organisation.uiPages?.length) return
+    if (!organisation || !organisation.uiPages || !Array.isArray(organisation.uiPages) || !organisation.uiPages.length) return
     const page = organisation.uiPages.find((p) => p.pageReference === reference)
     if (page) {
       setPageReference(reference)
@@ -64,4 +80,10 @@ OrganisationProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export const useOrganisation = () => useContext(OrganisationContext)
+export const useOrganisation = () => {
+  const context = useContext(OrganisationContext)
+  if (!context) {
+    throw new Error('useOrganisation must be used within an OrganisationProvider')
+  }
+  return context
+}

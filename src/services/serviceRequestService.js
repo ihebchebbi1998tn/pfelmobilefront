@@ -1,63 +1,51 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const serviceRequestService = {
     
   getAllServiceRequest: async (page, pageSize, companyId, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      companyId: companyId.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    return localStorageService.getAll('mockServiceRequests', {
+      page,
+      pageSize,
+      companyId,
+      searchTerm
     })
-
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
-    }
-
-    const res = await axiosInstance.get(
-      `/service/api/ServiceRequest?${params.toString()}`
-    )
-    return res.data
   },
 
   addServiceRequest: async (serviceRequest) => {
-    const res = await axiosInstance.post(`/service/api/ServiceRequest`, serviceRequest)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockServiceRequests', serviceRequest)
   },
 
   updateServiceRequest: async (serviceRequest) => {
-    const res = await axiosInstance.post(`/service/api/ServiceRequest/update`, serviceRequest)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockServiceRequests', serviceRequest.id, serviceRequest)
   },
 
   toggleServiceRequestStatus: async (serviceRequest) => {
-    const res = await axiosInstance.post(`/service/api/ServiceRequest/toggle`, serviceRequest)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    const current = localStorageService.getById('mockServiceRequests', serviceRequest.id)
+    if (current) {
+      return localStorageService.update('mockServiceRequests', serviceRequest.id, {
+        status: serviceRequest.status
+      })
+    }
+    return null
   },
 
   DeleteServiceRequest: async (id) => {
-    const res = await axiosInstance.delete(`/service/api/ServiceRequest/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockServiceRequests', id)
   },
 
    DownloadInvoiceServiceRequest: async (id, lang, city, streetName, zipCode, phone, email) => {
-  const params = new URLSearchParams({
-    lang: lang || '',
-    city: city || '',
-    streetName: streetName || '',
-    zipCode: zipCode || '',
-    phone: phone || '',
-    email: email || '',
-  });
-
-  const res = await axiosInstance.get(
-    `/service/api/ServiceRequest/${id}/download?${params.toString()}`,
-    {
-      responseType: 'blob', 
-    }
-  )
-
-  return res.data
- }
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    // Mock PDF blob data
+    const pdfContent = new Blob(['Mock PDF content for service request ' + id], { type: 'application/pdf' })
+    return pdfContent
+   }
 }
 
 export default serviceRequestService

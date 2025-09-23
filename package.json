@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint src --ext .js,.jsx",
-    "lint:fix": "eslint src --ext .js,.jsx --fix",
-    "prepare": "husky install",
-    "preview": "vite preview"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "build:dev": "vite build --mode development",
+  "lint": "eslint src --ext .js,.jsx",
+  "lint:fix": "eslint src --ext .js,.jsx --fix",
+  "prepare": "husky install",
+  "preview": "vite preview"
+},
   "dependencies": {
     "@babel/core": "^7.26.10",
     "@date-io/dayjs": "^3.2.0",
@@ -35,10 +36,11 @@
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "lottie-web": "^5.12.2",
+    "lovable-tagger": "^1.1.9",
     "motion": "^12.23.0",
-    "react": "^19.0.0",
+    "react": "^19.1.1",
     "react-color": "^2.19.3",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.1.1",
     "react-dropzone": "^14.3.8",
     "react-joyride": "^2.9.3",
     "react-leaflet": "^5.0.0",
@@ -48,7 +50,7 @@
     "react-signature-canvas": "^1.1.0-alpha.2",
     "react-tooltip": "^5.29.1",
     "sass": "^1.86.0",
-    "typescript": "^5.8.2",
+    "typescript": "^5.9.2",
     "vite-plugin-lottie": "^1.0.1"
   },
   "devDependencies": {
@@ -59,7 +61,7 @@
     "@eslint/js": "^9.22.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9.22.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
@@ -68,6 +70,6 @@
     "globals": "^15.15.0",
     "husky": "^8.0.0",
     "prettier": "^3.5.3",
-    "vite": "^6.2.5"
+    "vite": "^6.3.6"
   }
 }

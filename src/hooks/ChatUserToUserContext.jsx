@@ -10,11 +10,10 @@ import {
   startSignalRConnection,
   getConnectedUserIds,
 } from '../services/signalRUserToUserService'
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from '../services/localStorageService'
 import PropTypes from 'prop-types'
 import { useLanguage } from './LanguageContext'
 import { useAuth } from './AuthContext'
-import { getDeviceInfo } from '../utils/getDeviceInfo'
 
 const ChatUserToUserContext = createContext()
 
@@ -30,18 +29,13 @@ export const ChatUserToUserProvider = ({ children }) => {
   const [userToUserChatError, setUserToUserChatError] = useState(null)
   const [typingUserId, setTypingUserId] = useState(null)
   const [sessionTypingId, setSessionTypingId] = useState(null)
+  
   const handleNewSessionCreated = async(sessionDto) => {
     fetchUserToUserSessions()
     const firstMessage = sessionDto?.messages?.[0]
-    const { deviceType, operatingSystem, browser } = await getDeviceInfo()
-
-       const params = new URLSearchParams({
-        deviceType: deviceType.toString(),
-        operatingSystem: operatingSystem.toString(),
-        browser: browser.toString()
-      })
-      const response = await axiosInstance.get(`/user/api/auth/me?${params.toString()}`)
-      if (response.data?.id && firstMessage && firstMessage.userId==response.data?.id) {
+    
+    // Mock user check for offline mode
+    if (user?.id && firstMessage && firstMessage.userId === user.id) {
       setUserToUserSessionId(sessionDto.id)
       setUserToUserMessages((prev) => {
         const uniqueMessages = (sessionDto.messages || []).filter(
@@ -54,11 +48,25 @@ export const ChatUserToUserProvider = ({ children }) => {
 
   const sendUserToUserMessage = async (content, type, userId, fileName) => {
     if (!connection) {
-      setUserToUserChatError(dictionary.NoConnection)
+      setUserToUserChatError('No connection available')
       return
     }
 
     try {
+      // Mock message sending - add to local state
+      const mockMessage = {
+        id: Date.now().toString(),
+        content,
+        type: type || 'text',
+        fileName,
+        userId: user?.id,
+        sessionId: userToUserSessionId || 'default',
+        timestamp: new Date().toISOString(),
+        status: true
+      }
+      
+      setUserToUserMessages(prev => [...prev, mockMessage])
+      
       await connection.invoke('SendMessage', {
         content,
         type,
@@ -67,30 +75,32 @@ export const ChatUserToUserProvider = ({ children }) => {
         userId,
       })
     } catch (err) {
-      setUserToUserChatError(err.message || dictionary.FailedToSend)
+      setUserToUserChatError('Failed to send message')
     }
   }
 
   const enterSession = useCallback(
-  async (sessionId) => {
+    async (sessionId) => {
+      if (!connection) return
+      try {
+        setUserToUserSessionId(sessionId)
+        await connection.invoke('EnterSession', sessionId)
+      } catch (err) {
+        console.error('❌ Failed to enter session:', err)
+      }
+    },
+    [connection]
+  )
+
+  const leaveSession = useCallback(async () => {
     if (!connection) return
     try {
-      await connection.invoke('EnterSession', sessionId)
+      setUserToUserSessionId(null)
+      await connection.invoke('LeaveSession')
     } catch (err) {
-      console.error('❌ Failed to enter session:', err)
+      console.error('❌ Failed to leave session:', err)
     }
-  },
-  [connection]
-)
-
-const leaveSession = useCallback(async () => {
-  if (!connection) return
-  try {
-    await connection.invoke('LeaveSession')
-  } catch (err) {
-    console.error('❌ Failed to leave session:', err)
-  }
-}, [connection])
+  }, [connection])
 
   useEffect(() => {
     if (!userToUserChatSessions || userToUserChatSessions.length === 0) return;
@@ -126,30 +136,29 @@ const leaveSession = useCallback(async () => {
 
   }, [userToUserChatSessions, user?.id]);
 
-
   const fetchUserToUserSessions = useCallback(async () => {
     try {
       setUserToUserChatError(null)
-      const response = await axiosInstance.get(
-        `/chat/api/chat/UserToUser/sessions`
-      )
-      setUserToUserChatSessions(response.data)
+      // Mock user-to-user chat sessions from localStorage
+      const mockSessions = localStorageService.getAll('mockUserToUserSessions', { page: 1, pageSize: 100 })
+      setUserToUserChatSessions(mockSessions.items || [])
     } catch (error) {
-      setUserToUserChatError(error || dictionary.FailedToGetSessions)
+      setUserToUserChatError('Failed to get user-to-user sessions')
     }
-  }, [dictionary])
-
+  }, [])
 
   const deleteUserToUserSession = async (sessionId) => {
     if (!connection) {
-      setUserToUserChatError(dictionary.NoConnection)
+      setUserToUserChatError('No connection available')
       return
     }
 
     try {
+      localStorageService.delete('mockUserToUserSessions', sessionId)
+      setUserToUserChatSessions(prev => prev.filter(s => s.id !== sessionId))
       await connection.invoke('ToggleSessionStatus', sessionId)
     } catch (err) {
-      setUserToUserChatError(err.message)
+      setUserToUserChatError('Failed to delete session')
     }
   }
 
@@ -163,7 +172,7 @@ const leaveSession = useCallback(async () => {
       conn = await startSignalRConnection()
       if (!conn) {
         if (isMounted)
-          setUserToUserChatError(dictionary.FailedToConnectToServer)
+          setUserToUserChatError('Failed to connect to user-to-user chat service')
         return
       }
 
@@ -172,8 +181,8 @@ const leaveSession = useCallback(async () => {
 
         conn.on('ReceiveUserToUserMessage', (data) => {
           const message = data.message
-
           const inSession = data.inSession
+          
           if (inSession) {
             setUserToUserMessages((prev) => {
               const alreadyExists = prev.some((m) => m.id === message.id)
@@ -251,16 +260,15 @@ const leaveSession = useCallback(async () => {
       if (conn) conn.stop()
       clearInterval(intervalId)
     }
-  }, [dictionary, isAuthenticated, loading])
-
+  }, [isAuthenticated, loading, fetchUserToUserSessions])
 
   const handleTyping = async(recipientUserId) => {
-      if (!connection) return
-      try {
-        await connection.invoke('SendTypingSignal', recipientUserId)
-      } catch (err) {
-        console.error('Failed to send typing signal:', err)
-      }
+    if (!connection) return
+    try {
+      await connection.invoke('SendTypingSignal', recipientUserId)
+    } catch (err) {
+      console.error('Failed to send typing signal:', err)
+    }
   }
 
   const contextValue = useMemo(
@@ -294,9 +302,6 @@ const leaveSession = useCallback(async () => {
       unreadMessages,
       enterSession,
       leaveSession,
-      setUserToUserMessages,
-      setUserToUserSessionId,
-      setUserToUserChatSessions,
       sendUserToUserMessage,
       fetchUserToUserSessions,
       deleteUserToUserSession,
@@ -315,4 +320,10 @@ ChatUserToUserProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export const useUserToUserChat = () => useContext(ChatUserToUserContext)
+export const useUserToUserChat = () => {
+  const context = useContext(ChatUserToUserContext)
+  if (!context) {
+    throw new Error('useUserToUserChat must be used within a ChatUserToUserProvider')
+  }
+  return context
+}

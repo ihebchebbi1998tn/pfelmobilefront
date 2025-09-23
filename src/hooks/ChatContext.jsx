@@ -7,7 +7,7 @@ import {
   useCallback,
 } from 'react'
 import { startSignalRConnection } from '../services/signalRService'
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from '../services/localStorageService'
 import PropTypes from 'prop-types'
 import { useLanguage } from './LanguageContext'
 import { useAuth } from './AuthContext'
@@ -17,7 +17,8 @@ const ChatContext = createContext()
 export const ChatProvider = ({ children }) => {
   const [connection, setConnection] = useState(null)
   const { dictionary } = useLanguage()
-  const { isAuthenticated, loading } = useAuth()
+  const authContext = useAuth()
+  const { isAuthenticated, loading } = authContext || { isAuthenticated: false, loading: true }
   const [messages, setMessages] = useState([])
   const [sessionId, setSessionId] = useState(null)
   const [chatSessions, setChatSessions] = useState([])
@@ -41,7 +42,7 @@ export const ChatProvider = ({ children }) => {
     const connect = async () => {
       const conn = await startSignalRConnection()
       if (!conn) {
-        setChatError(dictionary.FailedToConnectToServer)
+        setChatError('Failed to connect to chat service')
         return
       }
 
@@ -64,7 +65,7 @@ export const ChatProvider = ({ children }) => {
       conn.on('NewSessionCreated', handleNewSessionCreated)
 
       conn.on('ReceiveError', (error) => {
-        setChatError(error || dictionary.unknownErrorChat)
+        setChatError(error || 'Unknown chat error')
       })
     }
 
@@ -74,27 +75,51 @@ export const ChatProvider = ({ children }) => {
 
   const sendMessage = async (content) => {
     if (!connection) {
-      setChatError(dictionary.NoConnection)
+      setChatError('No connection available')
       return
     }
 
     try {
+      // Mock message sending - add message to local state
+      const mockMessage = {
+        id: Date.now().toString(),
+        content,
+        timestamp: new Date().toISOString(),
+        isFromUser: true,
+        sessionId: sessionId || 'default'
+      }
+      
+      setMessages(prev => [...prev, mockMessage])
+      
+      // Mock AI response after delay
+      setTimeout(() => {
+        const aiResponse = {
+          id: (Date.now() + 1).toString(),
+          content: `Mock AI response to: "${content}"`,
+          timestamp: new Date().toISOString(),
+          isFromUser: false,
+          sessionId: sessionId || 'default'
+        }
+        setMessages(prev => [...prev, aiResponse])
+      }, 1000)
+      
       await connection.invoke('SendMessage', {
         content,
         sessionId: sessionId || null,
       })
     } catch (err) {
-      setChatError(err || dictionary.FailedToSend)
+      setChatError('Failed to send message')
     }
   }
 
   const fetchSessions = useCallback(async () => {
     try {
       setChatError(null)
-      const response = await axiosInstance.get(`/chat/api/chat/sessions`)
-      setChatSessions(response.data)
+      // Mock chat sessions from localStorage
+      const mockSessions = localStorageService.getAll('mockChatSessions', { page: 1, pageSize: 100 })
+      setChatSessions(mockSessions.items || [])
     } catch (error) {
-      setChatError(error || dictionary.FailedToGetSessions)
+      setChatError('Failed to get chat sessions')
     }
   }, [dictionary])
 
@@ -102,30 +127,30 @@ export const ChatProvider = ({ children }) => {
     async (id) => {
       try {
         setChatError(null)
-        await axiosInstance.delete(`/chat/api/chat/${id}`)
+        localStorageService.delete('mockChatSessions', id)
         setChatSessions((prev) => prev.filter((s) => s.id !== id))
         if (sessionId === id) {
           setSessionId(null)
           setMessages([])
         }
       } catch (error) {
-        setChatError(error || dictionary.FailedToDeleteSessions)
+        setChatError('Failed to delete session')
       }
     },
-    [dictionary]
+    [sessionId]
   )
 
   const updateSessionTitle = useCallback(
     async (id, title) => {
       try {
         setChatError(null)
-        await axiosInstance.put(`/chat/api/chat/${id}`, { title })
+        localStorageService.update('mockChatSessions', id, { title })
         fetchSessions()
       } catch (error) {
-        setChatError(error || dictionary.FailedToUpdateSessions)
+        setChatError('Failed to update session')
       }
     },
-    [dictionary]
+    [fetchSessions]
   )
 
   const contextValue = useMemo(
@@ -149,6 +174,8 @@ export const ChatProvider = ({ children }) => {
       chatSessions,
       chatError,
       updateSessionTitle,
+      deleteSession,
+      fetchSessions
     ]
   )
 

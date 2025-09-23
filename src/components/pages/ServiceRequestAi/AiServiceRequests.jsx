@@ -262,14 +262,26 @@ const [openTutorial, setOpenTutorial] = useState(() => {
  const fetchServicesData = async (page,searchTerm) => {
      try {
        const data = await ServiceAiRequest.getAllServiceRequest(page,itemsPerPage,user.organization.id,searchTerm)
+       
+       // Always show interface
+       setHasAnyServiceRequest(true)
+       
        if (data) {
          if (data.totalCount > 0) {
-            if(!hasAnyServiceRequest) setHasAnyServiceRequest(true)
           setTotalPages(Math.ceil(data.totalCount / itemsPerPage))
+        } else {
+          setTotalPages(0)
         }
-        setServices(data.items)
+        setServices(data.items || [])
+      } else {
+        setServices([])
+        setTotalPages(0)
       }
      } catch (e) {
+       setHasAnyServiceRequest(true) // Show interface even on error
+       setServices([])
+       setTotalPages(0)
+       
        if (e?.response?.data?.message) {
         const message = e.response.data.message
         if (message === 'User not authenticated') {

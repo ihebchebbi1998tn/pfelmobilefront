@@ -1,58 +1,46 @@
-import axiosInstance from '../utils/axiosInstance'
+import { localStorageService } from './localStorageService'
 
 const orderService = {
     
   getAllOrders: async (page, pageSize, companyId, searchTerm) => {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      pageSize: pageSize.toString(),
-      companyId: companyId.toString(),
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    const result = localStorageService.getAll('mockOrders', {
+      page,
+      pageSize,
+      companyId,
+      searchTerm
     })
 
-    if (searchTerm?.trim()) {
-      params.append('searchTerm', searchTerm.trim())
+    console.log('Order service result:', result)
+    return {
+      ...result,
+      companyNames: ['L-Mobile']
     }
-
-    const res = await axiosInstance.get(
-      `/service/api/Order?${params.toString()}`
-    )
-    return res.data
   },
 
   addOrder: async (order) => {
-    const res = await axiosInstance.post(`/service/api/Order`, order)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.create('mockOrders', order)
   },
 
   updateOrder: async (order) => {
-    const res = await axiosInstance.post(`/service/api/Order/update`, order)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.update('mockOrders', order.id, order)
   },
 
   DeleteOrder: async (id) => {
-    const res = await axiosInstance.delete(`/service/api/Order/${id}`)
-    return res.data
+    await new Promise(resolve => setTimeout(resolve, 200))
+    return localStorageService.delete('mockOrders', id)
   },
 
   DownloadInvoiceOrder: async (id, lang, city, streetName, zipCode, phone, email) => {
-  const params = new URLSearchParams({
-    lang: lang || '',
-    city: city || '',
-    streetName: streetName || '',
-    zipCode: zipCode || '',
-    phone: phone || '',
-    email: email || '',
-  });
-
-  const res = await axiosInstance.get(
-    `/service/api/Order/${id}/download?${params.toString()}`,
-    {
-      responseType: 'blob', 
-    }
-  )
-
-  return res.data
- }
+    await new Promise(resolve => setTimeout(resolve, 200))
+    
+    // Mock PDF blob data
+    const pdfContent = new Blob(['Mock PDF content for order ' + id], { type: 'application/pdf' })
+    return pdfContent
+  }
 }
 
 export default orderService

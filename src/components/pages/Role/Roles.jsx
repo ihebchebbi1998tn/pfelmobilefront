@@ -94,18 +94,22 @@ const Roles = () => {
     },
   ]
   const handleModalUpdate = (row) => {
-    if (row.id) {
+    if (row.id && roles?.length > 0) {
       roles.forEach((role) => {
-        if (role.id == row.id) setSelectedRole(role)
-        setOpenModalFrom(true)
+        if (role.id == row.id) {
+          setSelectedRole(role)
+          setOpenModalFrom(true)
+        }
       })
     }
   }
   const handleShowDetails = (row) => {
-    if (row.id) {
+    if (row.id && roles?.length > 0) {
       roles.forEach((role) => {
-        if (role.id == row.id) setSelectedRole(role)
-        setOpenModalDetails(true)
+        if (role.id == row.id) {
+          setSelectedRole(role)
+          setOpenModalDetails(true)
+        }
       })
     }
   }
@@ -174,8 +178,9 @@ const Roles = () => {
         if (data.totalCount > 0) {
           setTotalPages(Math.ceil(data.totalCount / itemsPerPage))
         }
-        setRoles(data.roles)
-        setUniqueCompanyNames(data.organizationNames)
+        // Fix: data now contains items array, not roles
+        setRoles(data.items || [])
+        setUniqueCompanyNames(data.organizationNames || [])
       }
     } catch (e) {
       if (e?.response?.data?.message) {
@@ -218,7 +223,7 @@ const Roles = () => {
   }
 
   useEffect(() => {
-    setFilteredData(roles)
+    setFilteredData(roles || [])
   }, [roles])
 
   return (
@@ -268,7 +273,7 @@ const Roles = () => {
         <Typography>{dictionary.AreYouSure}</Typography>
       </Modal>
       <Box sx={{ flexBasis: { xs: '100%', sm: '100%' } }}>
-        {(roles.length > 0 || isSerched) ? (
+        {(roles?.length > 0 || isSerched) ? (
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}

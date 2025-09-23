@@ -1,0 +1,71 @@
+[
+  {
+    "id": "chat-001",
+    "title": "Device Installation Inquiry",
+    "userId": "1",
+    "status": "Active",
+    "createdAt": "2024-12-20T09:30:00Z",
+    "updatedAt": "2024-12-20T10:15:00Z",
+    "messages": [
+      {
+        "id": "msg-001",
+        "content": "I need help with installing the new smart thermostats in our office building.",
+        "timestamp": "2024-12-20T09:30:00Z",
+        "isFromUser": true,
+        "sessionId": "chat-001"
+      },
+      {
+        "id": "msg-002",
+        "content": "I'd be happy to help you with the smart thermostat installation. First, let me gather some information about your setup. How many units are you planning to install and what type of HVAC system do you have?",
+        "timestamp": "2024-12-20T09:31:00Z",
+        "isFromUser": false,
+        "sessionId": "chat-001"
+      },
+      {
+        "id": "msg-003",
+        "content": "We have 6 units to install and we're using a central HVAC system with individual zone controls.",
+        "timestamp": "2024-12-20T10:15:00Z",
+        "isFromUser": true,
+        "sessionId": "chat-001"
+      }
+    ]
+  },
+  {
+    "id": "chat-002",
+    "title": "Service Request Support",
+    "userId": "1",
+    "status": "Closed",
+    "createdAt": "2024-12-18T14:20:00Z",
+    "updatedAt": "2024-12-18T15:45:00Z",
+    "messages": [
+      {
+        "id": "msg-004",
+        "content": "My security camera went offline after a power outage. Can you help me troubleshoot this?",
+        "timestamp": "2024-12-18T14:20:00Z",
+        "isFromUser": true,
+        "sessionId": "chat-002"
+      },
+      {
+        "id": "msg-005",
+        "content": "I can definitely help you with that. Power outages can sometimes cause issues with network devices. Let's start by checking if the camera's power LED is on and if your network connection is stable.",
+        "timestamp": "2024-12-18T14:21:00Z",
+        "isFromUser": false,
+        "sessionId": "chat-002"
+      },
+      {
+        "id": "msg-006",
+        "content": "The power LED is off. I think the power supply might be damaged.",
+        "timestamp": "2024-12-18T14:25:00Z",
+        "isFromUser": true,
+        "sessionId": "chat-002"
+      },
+      {
+        "id": "msg-007",
+        "content": "That's likely the issue. I'll create a service request for you to have a technician replace the power supply. You should receive a confirmation email shortly with the service request details.",
+        "timestamp": "2024-12-18T14:30:00Z",
+        "isFromUser": false,
+        "sessionId": "chat-002"
+      }
+    ]
+  }
+]

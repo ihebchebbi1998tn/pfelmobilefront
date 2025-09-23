@@ -33,7 +33,7 @@ const Devices = () => {
   const { user } = useAuth()
   const { toggleLoader, handleRightDrawerOpen } = useOutletContext()
   const { dictionary } = useLanguage()
-  const { fetchOrganisationData, uiPage } = useOrganisation()
+  const { fetchOrganisationData = () => {}, uiPage = null } = useOrganisation() || {}
   const [typeSnack, setTypeSnack] = useState(null)
   const [messageSnack, setMessageSnack] = useState(null)
   const [openSnackBar, setOpenSnackBar] = useState(false)
@@ -208,17 +208,21 @@ const Devices = () => {
       const data = await deviceService.getAllDevices(
         pageNumber,
         itemsNumber,
-        user.organization.id,
+        user.clientOrganization?.id || "1",
         searchTerm
       )
-      if (data) {
-        if (data.totalCount > 0) {
-            if(!hasAnyDevice) setHasAnyDevice(true)
-          setTotalPages(Math.ceil(data.totalCount / itemsNumber))
-        }
-        setDevices(data.items)
-        setUniqueCompanyNames(data.companyNames)
-      }
+       if (data) {
+         console.log('Devices data received:', data)
+         if (data.totalCount > 0) {
+             if(!hasAnyDevice) setHasAnyDevice(true)
+           setTotalPages(Math.ceil(data.totalCount / itemsNumber))
+         }
+         setDevices(data.items)
+         setUniqueCompanyNames(data.companyNames)
+         console.log('Devices set:', data.items)
+         console.log('Layout:', layout)
+         console.log('HasAnyDevice:', hasAnyDevice)
+       }
     } catch (e) {
       if (e?.response?.data?.message) {
         const message = e.response.data.message
@@ -396,14 +400,14 @@ const Devices = () => {
               borderRadius: 2,
               
             '&:hover fieldset': {
-              borderColor: user.organization.primaryColor,
+              borderColor: user.clientOrganization?.primaryColor || '#1976d2',
             },
             '&.Mui-focused fieldset': {
-              borderColor: user.organization.primaryColor,
+              borderColor: user.clientOrganization?.primaryColor || '#1976d2',
             },
             },
             '& .MuiInputLabel-root': {
-            color: user.organization.primaryColor,
+            color: user.clientOrganization?.primaryColor || '#1976d2',
           },
           '& .MuiInputLabel-root.Mui-focused': {
             fontWeight: 'bold',
@@ -428,14 +432,14 @@ const Devices = () => {
               borderRadius: 2,
              
             '&:hover fieldset': {
-              borderColor: user.organization.primaryColor,
+              borderColor: user.clientOrganization?.primaryColor || '#1976d2',
             },
             '&.Mui-focused fieldset': {
-              borderColor: user.organization.primaryColor,
+              borderColor: user.clientOrganization?.primaryColor || '#1976d2',
             },
             },
             '& .MuiInputLabel-root': {
-            color: user.organization.primaryColor,
+            color: user.clientOrganization?.primaryColor || '#1976d2',
           },
           '& .MuiInputLabel-root.Mui-focused': {
             fontWeight: 'bold',
@@ -474,10 +478,10 @@ const Devices = () => {
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {layout === 'Table' && <TableContainerComponent {...commonProps} />}
-                      {layout === 'Grid' && <GridContainer {...commonProps} />}
-                      {layout === 'Column' && <ColumnContainer {...commonProps} />}
-                      {layout === 'Tab' && <TabContainer {...commonProps} />}
+                       {(layout === 'table' || layout === 'Table') && <TableContainerComponent {...commonProps} />}
+                       {(layout === 'grid' || layout === 'Grid') && <GridContainer {...commonProps} />}
+                       {(layout === 'column' || layout === 'Column') && <ColumnContainer {...commonProps} />}
+                       {(layout === 'tab' || layout === 'Tab') && <TabContainer {...commonProps} />}
                     </motion.div>
                   </AnimatePresence>
                 ) : (

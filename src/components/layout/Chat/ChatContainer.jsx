@@ -109,7 +109,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
       setOtherUserId(null)
     } else {
       setOtherUserId(id)
-      if (userToUserChatSessions.length > 0) {
+      if (userToUserChatSessions && Array.isArray(userToUserChatSessions) && userToUserChatSessions.length > 0) {
         const session = userToUserChatSessions.find(
           (s) => s.user1Id === id || s.user2Id === id
         )
@@ -118,7 +118,9 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
           await enterSession(session.id)
           const sessionMessages = session.messages
           setUserToUserMessages(sessionMessages)
-          const u =connectedUsers.length>0 ? connectedUsers.find((c) => c?.id === id) : null
+          const u = (connectedUsers && Array.isArray(connectedUsers) && connectedUsers.length > 0) 
+            ? connectedUsers.find((c) => c?.id === id) 
+            : null
           setOtherUserData(u)
           if(u){
             setHeaderTitle(`${u.firstName} ${u.lastName}`)
@@ -185,7 +187,7 @@ const [headerTitle, setHeaderTitle] = useState(getInitialHeaderTitle)
             color: isDark ? '#FEFFFE' : '#242424',
             transition: 'all 0.3s ease-in-out',
             '&:hover': {
-              backgroundColor: darken(user.organization.primaryColor, 0.2),
+              backgroundColor: darken(user?.organization?.primaryColor || '#1976d2', 0.2),
               transform: 'scale(1.2)',
             },
           }}

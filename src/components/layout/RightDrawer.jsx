@@ -35,7 +35,17 @@ const RightDrawer = ({
 }) => {
 const { user } = useAuth()
   const { dictionary } = useLanguage()
-  const { pageReference } = useOrganisation()
+  
+  // Safely get organisation context with fallback
+  let pageReference = null
+  try {
+    const orgContext = useOrganisation()
+    pageReference = orgContext?.pageReference || null
+  } catch (error) {
+    // If OrganisationProvider is not available, use fallback
+    console.warn('OrganisationProvider not available in RightDrawer context')
+    pageReference = null
+  }
   const theme = useTheme()
   const isDark = theme.palette.mode === 'dark'
   const drawerWidth = 260
@@ -203,7 +213,7 @@ const { user } = useAuth()
               scrollbarColor: isDark ? "white transparent" : "black transparent"
             }}
           >
-            <DialogContent>
+            <DialogContent aria-describedby="drawer-content-description">
               <AnimatePresence mode="wait">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -240,6 +250,7 @@ const { user } = useAuth()
          
         
             <DialogContent
+            aria-describedby="drawer-content-large-description"
             sx={{
               width: { xs: '300px', sm: '400px', md: '500px', lg: '800px' },
               overflowY: 'auto',

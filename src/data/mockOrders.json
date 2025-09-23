@@ -1,0 +1,137 @@
+[
+  {
+    "id": "ord-001",
+    "orderNumber": "ORD-2024-001",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "status": "Completed",
+    "priority": "High",
+    "totalAmount": 2500.00,
+    "currency": "USD",
+    "orderDate": "2024-01-15T10:30:00Z",
+    "deliveryDate": "2024-01-20T15:00:00Z",
+    "companyId": "1",
+    "organizationId": "1",
+    "items": [
+      {
+        "id": "item-001",
+        "productName": "Smart Thermostat Pro",
+        "productCode": "ST-4000",
+        "quantity": 2,
+        "unitPrice": 899.99,
+        "totalPrice": 1799.98,
+        "description": "Advanced smart thermostat with AI-powered climate control"
+      },
+      {
+        "id": "item-002",
+        "productName": "Installation Service",
+        "productCode": "INST-001",
+        "quantity": 1,
+        "unitPrice": 700.02,
+        "totalPrice": 700.02,
+        "description": "Professional installation and setup service"
+      }
+    ],
+    "shippingAddress": {
+      "street": "123 Business Ave",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA"
+    },
+    "notes": "Rush delivery requested for critical facility upgrade",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-20T15:00:00Z"
+  },
+  {
+    "id": "ord-002",
+    "orderNumber": "ORD-2024-002",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "status": "In Progress",
+    "priority": "Medium",
+    "totalAmount": 3200.00,
+    "currency": "USD",
+    "orderDate": "2024-02-20T09:15:00Z",
+    "estimatedDelivery": "2024-12-25T12:00:00Z",
+    "companyId": "1",
+    "organizationId": "1",
+    "items": [
+      {
+        "id": "item-003",
+        "productName": "Security Camera 360",
+        "productCode": "SC-3600",
+        "quantity": 4,
+        "unitPrice": 650.00,
+        "totalPrice": 2600.00,
+        "description": "360-degree security camera with night vision"
+      },
+      {
+        "id": "item-004",
+        "productName": "Network Configuration",
+        "productCode": "NET-001",
+        "quantity": 1,
+        "unitPrice": 600.00,
+        "totalPrice": 600.00,
+        "description": "Network setup and configuration service"
+      }
+    ],
+    "shippingAddress": {
+      "street": "456 Enterprise Blvd",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90210",
+      "country": "USA"
+    },
+    "notes": "Coordinate with security team for installation scheduling",
+    "createdAt": "2024-02-20T09:15:00Z",
+    "updatedAt": "2024-12-20T14:30:00Z"
+  },
+  {
+    "id": "ord-003",
+    "orderNumber": "ORD-2024-003",
+    "customerId": "1",
+    "customerName": "Admin User",
+    "customerEmail": "admin@lmobile.com",
+    "status": "Pending",
+    "priority": "Low",
+    "totalAmount": 1800.00,
+    "currency": "USD",
+    "orderDate": "2024-03-10T13:20:00Z",
+    "estimatedDelivery": "2024-12-30T10:00:00Z",
+    "companyId": "1",
+    "organizationId": "1",
+    "items": [
+      {
+        "id": "item-005",
+        "productName": "Smart Lock Elite",
+        "productCode": "SL-2000",
+        "quantity": 3,
+        "unitPrice": 450.00,
+        "totalPrice": 1350.00,
+        "description": "Biometric smart lock with multiple access methods"
+      },
+      {
+        "id": "item-006",
+        "productName": "Programming Service",
+        "productCode": "PROG-001",
+        "quantity": 1,
+        "unitPrice": 450.00,
+        "totalPrice": 450.00,
+        "description": "Lock programming and user setup service"
+      }
+    ],
+    "shippingAddress": {
+      "street": "789 Corporate Dr",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60601",
+      "country": "USA"
+    },
+    "notes": "Waiting for building access approval from facility management",
+    "createdAt": "2024-03-10T13:20:00Z",
+    "updatedAt": "2024-03-15T16:45:00Z"
+  }
+]
